@@ -8,7 +8,9 @@ export default {
   theme: {
     extend: {
       colors : {
-        themeColor : "#1D232A",
+        themeColor : "#030712",
+        themeColor2 : "#111827",
+        themeColor3 : "#1F2937",
         pmColor : "#00a8ff",
       }
     },

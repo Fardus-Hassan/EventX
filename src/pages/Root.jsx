@@ -10,8 +10,8 @@ const Root = () => {
             <div className="lg:h-[88px] md:h-[85px] h-[78px]">
 
             </div>
-            <div className="lg:min-h-[calc(100vh-106px-249px)] min-h-[calc(100vh-60px)] bg-white dark:bg-themeColor">
-                <div className="w-[98%] mx-auto">
+            <div className="lg:min-h-[calc(100vh-106px-249px)] min-h-[calc(100vh-60px)] bg-white dark:bg-themeColor2">
+                <div className="w-[98%] mx-auto max-w-[1440px]">
                     <Outlet></Outlet>
                 </div>
             </div>

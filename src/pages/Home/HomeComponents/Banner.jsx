@@ -25,7 +25,7 @@ const Banner = () => {
 
     return (
 
-        <div className='pb-10 sm:pb-[100px] pt-2 max-w-[1440px] mx-auto lg:w-[90%] relative rounded-2xl'>
+        <div className='pb-10 sm:pb-[100px] pt-2 relative rounded-2xl'>
             <Swiper
                 autoplay={{
                     delay: 3000,
