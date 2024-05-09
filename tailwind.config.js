@@ -9,7 +9,7 @@ export default {
     extend: {
       colors : {
         themeColor : "#1D232A",
-        pmColor : "",
+        pmColor : "#00a8ff",
       }
     },
   },

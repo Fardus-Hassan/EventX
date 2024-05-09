@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { SiSkillshare } from "react-icons/si";
 
 const Navigation = () => {
 
@@ -35,13 +36,13 @@ const Navigation = () => {
     // console.log(localStorage.getItem("theme"));
 
     return (
-        <nav className="relative bg-white shadow dark:bg-themeColor">
-            <div className="max-w-[1440px] w-[90%] py-4 mx-auto">
+        <nav className=" bg-white shadow dark:bg-themeColor fixed w-full z-50">
+            <div className="max-w-[1440px] md:py-2 py-1 w-[90%] mx-auto">
                 <div className="lg:flex lg:items-center lg:justify-between">
                     <div className="flex items-center justify-between">
-                        <a href="#">
-                            <img className="w-auto h-6 sm:h-7" src="https://merakiui.com/images/full-logo.svg" alt="" />
-                        </a>
+                        <Link to='/'>
+                            <SiSkillshare className='text-7xl text-pmColor' />
+                        </Link>
                         {/* Mobile menu button */}
                         <div className="flex justify-center items-center sm:gap-5 gap-3 lg:hidden">
 
@@ -76,27 +77,27 @@ const Navigation = () => {
                             <div className="container flex items-center justify-center p-6 mx-auto text-gray-600 capitalize dark:text-gray-300">
                                 <NavLink onClick={() => setIsOpen(false)} to="/" className={({ isActive, isPending }) =>
                                     isActive
-                                        ? "border-b-2 hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 border-blue-500 mx-1.5 sm:mx-6"
+                                        ? "border-b-2 hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 border-pmColor mx-1.5 sm:mx-6"
                                         : isPending
                                             ? "pending"
-                                            : "border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
+                                            : "border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-pmColor mx-1.5 sm:mx-6"
                                 }>Home</NavLink>
                                 {/* border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6 */}
 
                                 <NavLink onClick={() => setIsOpen(false)} to="/services" className={({ isActive, isPending }) =>
                                     isActive
-                                        ? "border-b-2 hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 border-blue-500 mx-1.5 sm:mx-6"
+                                        ? "border-b-2 hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 border-pmColor mx-1.5 sm:mx-6"
                                         : isPending
                                             ? "pending"
-                                            : "border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
+                                            : "border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-pmColor mx-1.5 sm:mx-6"
                                 }>Services </NavLink>
 
                                 <NavLink onClick={() => setIsOpen(false)} to="/dashboard" className={({ isActive, isPending }) =>
                                     isActive
-                                        ? "border-b-2 hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 border-blue-500 mx-1.5 sm:mx-6"
+                                        ? "border-b-2 hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 border-pmColor mx-1.5 sm:mx-6"
                                         : isPending
                                             ? "pending"
-                                            : "border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
+                                            : "border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-pmColor mx-1.5 sm:mx-6"
                                 }>Dashboard</NavLink>
 
                             </div>

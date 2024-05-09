@@ -1,4 +1,5 @@
-
+import { Link } from "react-router-dom";
+import { SiSkillshare } from "react-icons/si";
 
 const Footer = () => {
     return (
@@ -7,9 +8,9 @@ const Footer = () => {
                 <div className="lg:flex">
                     <div className="w-full -mx-6 lg:w-2/5">
                         <div className="px-6">
-                            <a href="#">
-                                <img className="w-auto h-7" src="https://merakiui.com/images/full-logo.svg" alt=""/>
-                            </a>
+                            <Link to='/'>
+                                <SiSkillshare className='text-7xl text-pmColor' />
+                            </Link>
 
                             <p className="max-w-sm mt-2 text-gray-500 dark:text-gray-400">Join 31,000+ other and never miss out on new tips, tutorials, and more.</p>
 
@@ -79,11 +80,11 @@ const Footer = () => {
                     </div>
                 </div>
 
-                <hr className="h-px my-6 bg-gray-200 border-none dark:bg-gray-700"/>
+                <hr className="h-px my-6 bg-gray-200 border-none dark:bg-gray-700" />
 
-                    <div>
-                        <p className="text-center text-gray-500 dark:text-gray-400">© Brand 2020 - All rights reserved</p>
-                    </div>
+                <div>
+                    <p className="text-center text-gray-500 dark:text-gray-400">© Brand 2020 - All rights reserved</p>
+                </div>
             </div>
         </footer>
     );
