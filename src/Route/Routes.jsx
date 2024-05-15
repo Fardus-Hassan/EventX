@@ -4,6 +4,7 @@ import Home from "../pages/Home/Home";
 import Services from "../pages/Services/Services";
 import DashBoard from "../pages/Dashboard/DashBoard";
 import Error from "../components/sheared/Error";
+import Login from "../pages/Login";
 
 const Routes = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const Routes = createBrowserRouter([
             {
                 path: "/dashboard",
                 element: <DashBoard></DashBoard>,
+            },
+            {
+                path: "/login",
+                element: <Login></Login>,
             }
         ],
     },

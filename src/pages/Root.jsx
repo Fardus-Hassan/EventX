@@ -11,7 +11,7 @@ const Root = () => {
 
             </div>
             <div className="lg:min-h-[calc(100vh-106px-249px)] min-h-[calc(100vh-60px)] bg-white dark:bg-themeColor2">
-                <div className="w-[98%] mx-auto max-w-[1440px]">
+                <div className="">
                     <Outlet></Outlet>
                 </div>
             </div>

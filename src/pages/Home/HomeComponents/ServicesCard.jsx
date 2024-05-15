@@ -4,7 +4,11 @@ const ServicesCard = () => {
     return (
         <div>
             <div className="max-w-2xl overflow-hidden shadow-md rounded-2xl bg-gray-200 dark:bg-themeColor3">
-                <img className="object-cover w-full h-64" src="https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="Article" />
+                <div className="relative h-64">
+                    <img className="object-cover w-full h-64 transform transition-transform duration-500 hover:scale-110 max-w-full max-h-full" src="https://html.rrdevs.net/printfix/assets/imgs/blog/letest-blog/blog-card2.jpg" alt="Article" />
+                </div>
+
+
 
                 <div className="p-6">
                     <div>

@@ -3,7 +3,7 @@ import { SiSkillshare } from "react-icons/si";
 
 const Footer = () => {
     return (
-        <footer className="bg-white dark:bg-themeColor">
+        <footer className="bg-white dark:bg-themeColor py-0 sm:py-10">
             <div className="max-w-[1440px] w-[90%] py-6 mx-auto">
                 <div className="lg:flex">
                     <div className="w-full -mx-6 lg:w-2/5">

@@ -12,6 +12,10 @@ export default {
         themeColor2 : "#111827",
         themeColor3 : "#1F2937",
         pmColor : "#00a8ff",
+      },
+      fontFamily : {
+        poppins : ["Poppins", "sans-serif"],
+        montserrat : ["Montserrat", "sans-serif"]
       }
     },
   },
