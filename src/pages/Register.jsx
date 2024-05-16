@@ -2,22 +2,19 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { FaStarOfLife } from "react-icons/fa";
 
-
-
-const Login = () => {
-
+const Register = () => {
     const [showPassword, setShowPassword] = useState(false)
-
     return (
         <div className="bg-white dark:bg-themeColor3">
-            <div className="flex justify-center h-[95vh]">
-                <div className="relative h-[95vh] overflow-y-auto bg-center bg-no-repeat bg-fixed hidden bg-cover lg:block lg:w-2/3" style={{ backgroundImage: "url(https://images.pexels.com/photos/196652/pexels-photo-196652.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)" }}>
-                    <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
-                        <div>
-                        <h1 className='text-3xl text-white font-poppins font-black mb-4'>Event<span className='text-pmColor'>X</span></h1>
+            <div className="flex flex-row-reverse justify-center h-[95vh]">
+                <div className="relative h-[95vh] overflow-y-auto bg-center bg-no-repeat bg-fixed hidden bg-cover lg:block lg:w-2/3" style={{ backgroundImage: "url(https://images.pexels.com/photos/2728557/pexels-photo-2728557.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)" }}>
+                    <div className="flex justify-end items-center h-full px-20 bg-gray-900 bg-opacity-40">
+                        <div className="text-right">
+                            <h1 className='text-3xl text-white font-poppins font-black mb-4'>Event<span className='text-pmColor'>X</span></h1>
                             <p className="max-w-xl mt-3 text-gray-300">
-                            Welcome back! Log in to access your account and manage your events seamlessly. Don't have an account? Sign up now to unlock exclusive features and event planning tools.
+                            Join our community of event enthusiasts! Register now to create your account and start planning unforgettable occasions. Gain access to exclusive features and tools to make your event management experience seamless.
                             </p>
                         </div>
                     </div>
@@ -27,22 +24,29 @@ const Login = () => {
                     <div className="flex-1">
                         <div className="text-center">
                             <div className="flex justify-center mx-auto">
-                            <h1 className='text-3xl dark:text-white dark:text-opacity-80 text-black text-opacity-70 font-poppins font-black mb-3'>Event<span className='text-pmColor'>X</span></h1>
+                                <h1 className='text-3xl dark:text-white dark:text-opacity-80 text-black text-opacity-70 font-poppins font-black mb-3'>Event<span className='text-pmColor'>X</span></h1>
 
                             </div>
-                            <p className=" text-gray-500 dark:text-gray-300">Sign in to access your features</p>
+                            <p className=" text-gray-500 dark:text-gray-300">Sign up to access your features</p>
                         </div>
                         <div className="mt-8">
                             <form>
                                 <div>
-                                    <label htmlFor="email" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email Address</label>
+                                    <label htmlFor="name" className="mb-2 text-sm text-gray-600 dark:text-gray-200 flex items-center gap-2">Your Name <FaStarOfLife className="text-red-500 text-[8px]" /></label>
+                                    <input type="text" name="name" id="name" placeholder="Your Full Name" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-pmColor focus:ring-pmColor focus:outline-none focus:ring focus:ring-opacity-40" />
+                                </div>
+                                <div className="mt-6">
+                                    <label htmlFor="email" className="block mb-2 text-sm text-gray-600 dark:text-gray-200 flex items-center gap-2">Email Address <FaStarOfLife className="text-red-500 text-[8px]" /></label>
                                     <input type="email" name="email" id="email" placeholder="example@example.com" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-pmColor focus:ring-pmColor focus:outline-none focus:ring focus:ring-opacity-40" />
+                                </div>
+                                <div className="mt-6">
+                                    <label htmlFor="photo" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Your Photo</label>
+                                    <input type="file" name="photo" id="photo" placeholder="" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-pmColor focus:ring-pmColor focus:outline-none focus:ring focus:ring-opacity-40" />
                                 </div>
 
                                 <div className="mt-6">
                                     <div className="flex justify-between mb-2">
-                                        <label htmlFor="password" className="text-sm text-gray-600 dark:text-gray-200">Password</label>
-                                        <a href="#" className="text-sm text-gray-400 focus:text-pmColor hover:text-pmColor hover:underline">Forgot password?</a>
+                                        <label htmlFor="password" className="text-sm text-gray-600 dark:text-gray-200 flex items-center gap-2">Password <FaStarOfLife className="text-red-500 text-[8px]" /></label>
                                     </div>
                                     <div className=" relative">
                                         <input type={showPassword ? 'text' : 'password'} name="password" id="password" placeholder="Your Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-pmColor dark:focus:border-pmColor focus:ring-pmColor focus:outline-none focus:ring focus:ring-opacity-40" />
@@ -53,7 +57,7 @@ const Login = () => {
 
                                 <div className="mt-6">
                                     <button className="group relative inline-flex w-full text-center mx-auto text-sm text-nowrap py-2 items-center justify-center overflow-hidden rounded-md bg-pmColor px-5 font-medium text-neutral-200">
-                                        <span>Sign In</span>
+                                        <span>Sign Up</span>
                                         <div className="w-0 translate-x-[100%] pl-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-0 group-hover:pl-1 group-hover:opacity-100">
                                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor"></path></svg>
                                         </div>
@@ -70,7 +74,7 @@ const Login = () => {
 
                                 <span className="mx-2">Sign in with Google</span>
                             </a>
-                            <p className="mt-6 text-sm text-center text-gray-400">Don't have an account yet? <Link to="/register" className="text-pmColor focus:outline-none focus:underline hover:underline">Sign up</Link>.</p>
+                            <p className="mt-6 text-sm text-center text-gray-400">Already have an account? <Link to="/login" className="text-pmColor focus:outline-none focus:underline hover:underline">Sign in</Link>.</p>
                         </div>
                     </div>
                 </div>
@@ -79,4 +83,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;

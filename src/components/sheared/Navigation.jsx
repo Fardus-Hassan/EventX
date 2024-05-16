@@ -39,12 +39,12 @@ const Navigation = () => {
 
 
     return (
-        <nav className=" bg-white shadow dark:bg-themeColor fixed w-full z-50">
-            <div className="max-w-[1440px] md:py-2 py-1 lg:w-[95%] w-[90%] mx-auto">
+        <nav className=" bg-white shadow dark:bg-themeColor2 fixed w-full z-50">
+            <div className="max-w-[1440px] py-6 lg:py-2 lg:w-[95%] w-[90%] mx-auto">
                 <div className="lg:flex lg:items-center lg:justify-between">
                     <div className="flex items-center justify-between">
                         <Link to='/'>
-                            <SiSkillshare className='text-7xl text-pmColor' />
+                            <h1 className='sm:text-3xl text-2xl dark:text-white dark:text-opacity-80 text-black text-opacity-70 font-poppins font-black'>Event<span className='text-pmColor'>X</span></h1>
                         </Link>
                         {/* Mobile menu button */}
                         <div className="flex justify-center items-center sm:gap-5 gap-4 lg:hidden">

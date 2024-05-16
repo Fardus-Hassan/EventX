@@ -20,9 +20,9 @@ const PopulerServices = () => {
 
             </div>
         </div>
-        // <section className="relative h-screen overflow-y-auto bg-cover bg-center bg-no-repeat bg-fixed" style={{ backgroundImage: "url('https://html.rrdevs.net/printfix/assets/imgs/projact/projact-img3.jpg')" }}>
+        //  <section className="relative h-screen overflow-y-auto bg-cover bg-center bg-no-repeat bg-fixed" style={{ backgroundImage: "url('https://html.rrdevs.net/printfix/assets/imgs/projact/projact-img3.jpg')" }}>
         //     <h1>Hellow</h1>
-        // </section>
+        //  </section>
 
     );
 };

@@ -5,6 +5,7 @@ import Services from "../pages/Services/Services";
 import DashBoard from "../pages/Dashboard/DashBoard";
 import Error from "../components/sheared/Error";
 import Login from "../pages/Login";
+import Register from "../pages/Register";
 
 const Routes = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ const Routes = createBrowserRouter([
             {
                 path: "/login",
                 element: <Login></Login>,
+            },
+            {
+                path: "/register",
+                element: <Register></Register>,
             }
         ],
     },
