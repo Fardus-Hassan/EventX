@@ -9,7 +9,7 @@ const MainServices = () => {
                         <p className="text-black dark:text-white sm:text-right text-center mt-6 font-medium sm:text-lg font-montserrat">Discover our core event management services designed to bring your vision to life seamlessly and with unparalleled expertise.</p>
                     </div>
                 </div>
-                <div className='grid lg:grid-cols-3 sm:grid-cols-2 justify-center items-center gap-5'>
+                <div className='grid lg:grid-cols-3 sm:grid-cols-2 justify-center items-center gap-3'>
                     <div className='text-center p-6 rounded-xl  text-black dark:text-white hover:scale-105 duration-300 hover:shadow-2xl'>
                         <div className='flex justify-center'>
                             <img className='w-20' src="https://i.ibb.co/2nYQskT/marketing-plan.png" alt="" />

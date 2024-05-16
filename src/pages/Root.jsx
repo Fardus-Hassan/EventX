@@ -7,7 +7,7 @@ const Root = () => {
     return (
         <div>
             <Navigation></Navigation>
-            <div className="lg:h-[88px] md:h-[85px] h-[64px]">
+            <div className="lg:h-[88px] md:h-[88px] h-[64px]">
 
             </div>
             <div className="lg:min-h-[calc(100vh-106px-249px)] min-h-[calc(100vh-60px)] bg-white dark:bg-themeColor">
