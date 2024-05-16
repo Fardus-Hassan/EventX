@@ -9,7 +9,7 @@ const PopulerServices = () => {
     return (
         <div className="pb-10 sm:pb-[100px] w-[98%] mx-auto max-w-[1440px]">
             <div className="sm:text-left text-center">
-                <h1 className="text-pmColor text-4xl sm:text-5xl font-bold font-poppins">Popular Services</h1>
+                <h1 className="text-pmColor text-3xl sm:text-5xl font-bold font-poppins">Popular Services</h1>
                 <p className="text-black dark:text-white mt-6 mb-10 max-w-[700px] font-medium sm:text-lg font-montserrat">Here are some good services posted by our community, you can choose your preferred service from here</p>
             </div>
             <div className="grid sm:grid-cols-2 grid-cols-1 gap-6">
