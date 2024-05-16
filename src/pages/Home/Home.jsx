@@ -1,6 +1,7 @@
 import AboutUs from './HomeComponents/AboutUs';
 import AskQuestion from './HomeComponents/AskQuestion';
 import Banner from './HomeComponents/Banner';
+import MainServices from './HomeComponents/MainServices';
 import PopulerServices from './HomeComponents/PopulerServices';
 
 const Home = () => {
@@ -10,6 +11,7 @@ const Home = () => {
             <PopulerServices></PopulerServices>
             <AboutUs></AboutUs>
             <AskQuestion></AskQuestion>
+            <MainServices></MainServices>
         </div>
     );
 };
