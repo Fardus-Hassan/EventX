@@ -3,17 +3,17 @@ import { SiSkillshare } from "react-icons/si";
 
 const Footer = () => {
     return (
-        <footer className="bg-white dark:bg-themeColor2 py-0 sm:py-10">
+        <footer className="bg-white dark:bg-themeColor3 py-0 sm:py-10">
             <div className="max-w-[1440px] w-[90%] py-6 mx-auto">
                 <div className="lg:flex">
                     <div className="w-full -mx-6 lg:w-2/5">
                         <div className="px-6">
                             <Link to='/'>
-                            <h1 className='sm:text-3xl text-2xl dark:text-white dark:text-opacity-80 text-black text-opacity-70 font-poppins font-black mb-3'>Event<span className='text-pmColor'>X</span></h1>
+                            <h1 className='sm:text-3xl text-2xl dark:text-white dark:text-opacity-80 text-black text-opacity-70 font-poppins font-black mb-5'>Event<span className='text-pmColor'>X</span></h1>
 
                             </Link>
 
-                            <p className="max-w-sm mt-2 text-gray-500 dark:text-gray-400">Join 31,000+ other and never miss out on new tips, tutorials, and more.</p>
+                            <p className="max-w-sm mt-2 text-gray-500 dark:text-gray-400">Follow us for updates, tips, and inspiration. Join our community and let's create memorable events together.</p>
 
                             <div className="flex mt-6 -mx-2">
                                 <a href="#"
@@ -74,8 +74,8 @@ const Footer = () => {
 
                             <div>
                                 <h3 className="text-gray-700 uppercase dark:text-white">Contact</h3>
-                                <span className="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline">+1 526 654 8965</span>
-                                <span className="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline">example@email.com</span>
+                                <span className="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline">+880 1722092675</span>
+                                <span className="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline">webdev.fardus@email.com</span>
                             </div>
                         </div>
                     </div>
@@ -84,7 +84,7 @@ const Footer = () => {
                 <hr className="h-px my-6 bg-gray-200 border-none dark:bg-gray-700" />
 
                 <div>
-                    <p className="text-center text-gray-500 dark:text-gray-400">© Brand 2020 - All rights reserved</p>
+                    <p className="text-center text-gray-500 dark:text-gray-400">© Fardus-Bappy 2024 - All rights reserved</p>
                 </div>
             </div>
         </footer>

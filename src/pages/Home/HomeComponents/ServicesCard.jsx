@@ -3,7 +3,7 @@
 const ServicesCard = () => {
     return (
         <div>
-            <div className="max-w-2xl overflow-hidden shadow-md rounded-2xl bg-gray-200 dark:bg-themeColor3">
+            <div className="max-w-2xl overflow-hidden rounded-2xl bg-gray-200 dark:bg-themeColor3">
                 <div className="relative h-64">
                     <img className="object-cover w-full h-64 transform transition-transform duration-500 hover:scale-110 max-w-full max-h-full" src="https://html.rrdevs.net/printfix/assets/imgs/blog/letest-blog/blog-card2.jpg" alt="Article" />
                 </div>

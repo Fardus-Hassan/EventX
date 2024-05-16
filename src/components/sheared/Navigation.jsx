@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { SiSkillshare } from "react-icons/si";
+import { GlobalStateContext } from '../../Global/GlobalContext';
 
 const Navigation = () => {
+
+    const { user, logout } = useContext(GlobalStateContext)
+
 
     const [isOpen, setIsOpen] = useState(false);
     const [icon, setIcon] = useState("");
@@ -35,12 +39,11 @@ const Navigation = () => {
         setIsDark(!isDark);
     };
 
-    console.log(isDark);
 
 
     return (
-        <nav className=" bg-white shadow dark:bg-themeColor2 fixed w-full z-50">
-            <div className="max-w-[1440px] py-6 lg:py-2 lg:w-[95%] w-[90%] mx-auto">
+        <nav className=" bg-white shadow dark:bg-themeColor3 fixed w-full z-50">
+            <div className="max-w-[1440px] py-4 sm:py-6 lg:py-2 lg:w-[95%] w-[90%] mx-auto">
                 <div className="lg:flex lg:items-center lg:justify-between">
                     <div className="flex items-center justify-between">
                         <Link to='/'>
@@ -48,6 +51,8 @@ const Navigation = () => {
                         </Link>
                         {/* Mobile menu button */}
                         <div className="flex justify-center items-center sm:gap-5 gap-4 lg:hidden">
+
+
 
                             <label className="swap swap-rotate">
 
@@ -68,12 +73,29 @@ const Navigation = () => {
                                     </svg>
                                 )}
                             </button>
+                            {user ? <div className="dropdown dropdown-end">
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                        <div className="w-10 rounded-full">
+                                            <img src={user?.photoURL || "https://i.ibb.co/m9jpXGZ/profile-user.png"}  alt="User" />
+                                        </div>
+                                    </div>
+                                    <ul tabIndex={0} className="mt-3 z-40 p-2 shadow menu menu-sm dropdown-content text-black dark:text-white rounded-box w-fit bg-white dark:bg-themeColor3">
+                                        <li><a>{user?.displayName}</a></li>
+                                        <li><a>{user?.email}</a></li>
+                                        <li><a onClick={()=>logout()} className='text-pmColor'>Logout</a></li>
+                                    </ul>
+                            </div> : <Link onClick={() => setIsOpen(false)} to='/login' className="group relative inline-flex w-fit text-center mx-auto text-sm text-nowrap py-2 items-center justify-center overflow-hidden rounded-md bg-pmColor px-5 font-medium text-neutral-200">
+                                <span>Sign In</span>
+                                <div className="w-0 translate-x-[100%] pl-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-0 group-hover:pl-1 group-hover:opacity-100">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor"></path></svg>
+                                </div>
+                            </Link>}
                         </div>
                     </div>
                     {/* Mobile Menu open: "block", Menu closed: "hidden" */}
                     <div className='lg:flex lg:justify-center lg:items-center lg:gap-5'>
-                        <div className={`absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out lg:bg-transparent bg-white lg:dark:bg-transparent dark:bg-themeColor lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center ${isOpen ? 'translate-x-0 opacity-100' : 'opacity-0 -translate-x-full'}`}>
-                            <div className="container flex items-center justify-center p-6 mx-auto text-gray-600 capitalize dark:text-gray-300">
+                        <div className={`absolute inset-x-0 z-10 w-full px-6 py-4 transition-all duration-300 ease-in-out lg:bg-transparent bg-white lg:dark:bg-transparent dark:bg-themeColor3 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center ${isOpen ? 'translate-x-0 opacity-100' : 'opacity-0 -translate-x-full'}`}>
+                            <div className="container flex items-center justify-center px-6 pt-6 sm:p-6 pb-2 mx-auto text-gray-600 capitalize dark:text-gray-300">
                                 <NavLink onClick={() => setIsOpen(false)} to="/" className={({ isActive, isPending }) =>
                                     isActive
                                         ? "border-b-2 hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 border-pmColor mx-1.5 sm:mx-6"
@@ -91,33 +113,36 @@ const Navigation = () => {
                                             : "border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-pmColor mx-1.5 sm:mx-6"
                                 }>Services </NavLink>
 
-                                <NavLink onClick={() => setIsOpen(false)} to="/dashboard" className={({ isActive, isPending }) =>
-                                    isActive
-                                        ? "border-b-2 hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 border-pmColor mx-1.5 sm:mx-6"
-                                        : isPending
-                                            ? "pending"
-                                            : "border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-pmColor mx-1.5 sm:mx-6"
-                                }>Dashboard</NavLink>
+                                {
+                                    user && <NavLink onClick={() => setIsOpen(false)} to="/dashboard" className={({ isActive, isPending }) =>
+                                        isActive
+                                            ? "border-b-2 hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 border-pmColor mx-1.5 sm:mx-6"
+                                            : isPending
+                                                ? "pending"
+                                                : "border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-pmColor mx-1.5 sm:mx-6"
+                                    }>Dashboard</NavLink>
+                                }
 
                             </div>
                             <div className="flex items-center justify-center mt-4 lg:mt-0">
-                                <Link onClick={() => setIsOpen(false)} to='/login' className="group relative inline-flex w-fit text-center mx-auto text-sm text-nowrap py-2 items-center justify-center overflow-hidden rounded-md bg-pmColor px-5 font-medium text-neutral-200">
+                                {user ? <div className="dropdown dropdown-end lg:block hidden z-50">
+                                    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                        <div className="w-10 rounded-full">
+                                            <img src={user?.photoURL || "https://i.ibb.co/m9jpXGZ/profile-user.png"}  alt="User" />
+                                        </div>
+                                    </div>
+                                    <ul tabIndex={0} className="mt-3 z-40 p-2 shadow menu menu-sm dropdown-content text-black dark:text-white rounded-box w-fit bg-white dark:bg-themeColor3">
+                                        <li><a>{user?.displayName}</a></li>
+                                        <li><a>{user?.email}</a></li>
+                                        <li><a onClick={()=>logout()} className='text-pmColor'>Logout</a></li>
+                                    </ul>
+                                </div> : <Link onClick={() => setIsOpen(false)} to='/login' className="group relative inline-flex w-fit text-center mx-auto text-sm text-nowrap py-2 items-center justify-center overflow-hidden rounded-md bg-pmColor px-5 font-medium text-neutral-200">
                                     <span>Sign In</span>
                                     <div className="w-0 translate-x-[100%] pl-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-0 group-hover:pl-1 group-hover:opacity-100">
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor"></path></svg>
                                     </div>
-                                </Link>
-                                {/* <div className="dropdown dropdown-end">
-                                    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                                        <div className="w-10 rounded-full">
-                                            <img alt="Tailwind CSS Navbar component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                                        </div>
-                                    </div>
-                                    <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content text-black dark:text-white rounded-box w-52 bg-white dark:bg-themeColor3">
-                                        <li><a>Settings</a></li>
-                                        <li><a>Logout</a></li>
-                                    </ul>
-                                </div> */}
+                                </Link>}
+
                             </div>
                         </div>
                         <div className='lg:block hidden'>

@@ -8,9 +8,8 @@ export default {
   theme: {
     extend: {
       colors : {
-        themeColor : "#030712",
-        themeColor2 : "#111827",
-        themeColor3 : "#1F2937",
+        themeColor : "#18191A",
+        themeColor3 : "#242526",
         pmColor : "#00a8ff",
       },
       fontFamily : {

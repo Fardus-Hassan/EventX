@@ -1,13 +1,90 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaStarOfLife } from "react-icons/fa";
+import { useForm } from "react-hook-form";
+import { GlobalStateContext } from "../Global/GlobalContext";
+import { auth } from "../firebase.config";
+import toast from "react-hot-toast";
+import { GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false)
+    const { register : regis, setUser, logout } = useContext(GlobalStateContext);
+    const [error, setError] = useState(null)
+    const googleProvider = new GoogleAuthProvider();
+    const navigate = useNavigate();
+    const form = location?.state || '/';
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm()
+
+    const handleProvider = (provider) => {
+
+        return signInWithPopup(auth, provider).then(result => {
+            if (result.user) {
+
+                toast.success('Login Successfully');
+                navigate(form);
+            }
+        }).catch(error => {
+            console.log(error);
+        })
+    }
+
+    
+    const onSubmit = (data) => {
+        const {name, email, password, photoURL} = data;
+        console.log(name, email, password, photoURL);
+
+        if(password.length <6){
+            return setError('Password should be at least 6 characters')
+        }
+        if (!/[A-Z]/.test(password)){
+            return setError('Must have an UPPERCASE letter in the password')
+        }
+        if (!/[a-z]/.test(password)){
+            return setError('Must have an lowercase letter in the password')
+        }
+        reset();
+        regis(email, password).then((result) => {
+
+            const user = result.user;
+            setUser(user);
+            logout()
+            navigate('/login')
+            
+
+            updateProfile(auth.currentUser, {
+
+                displayName: name,
+                photoURL: photoURL
+
+            }).then(() => {
+                toast.success('Register Successfully');
+
+            }).catch((error) => {
+
+                setError(error.message)
+            });
+
+        })
+            .catch((error) => {
+                console.log(error);
+                setError(error.message)
+
+            });
+
+    }
+
+
+
     return (
-        <div className="bg-white dark:bg-themeColor3">
+        <div className="bg-white dark:bg-themeColor">
             <div className="flex flex-row-reverse justify-center h-[95vh]">
                 <div className="relative h-[95vh] overflow-y-auto bg-center bg-no-repeat bg-fixed hidden bg-cover lg:block lg:w-2/3" style={{ backgroundImage: "url(https://images.pexels.com/photos/2728557/pexels-photo-2728557.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)" }}>
                     <div className="flex justify-end items-center h-full px-20 bg-gray-900 bg-opacity-40">
@@ -30,18 +107,23 @@ const Register = () => {
                             <p className=" text-gray-500 dark:text-gray-300">Sign up to access your features</p>
                         </div>
                         <div className="mt-8">
-                            <form>
+                            <form onSubmit={handleSubmit(onSubmit)}>
                                 <div>
                                     <label htmlFor="name" className="mb-2 text-sm text-gray-600 dark:text-gray-200 flex items-center gap-2">Your Name <FaStarOfLife className="text-red-500 text-[8px]" /></label>
-                                    <input type="text" name="name" id="name" placeholder="Your Full Name" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-pmColor focus:ring-pmColor focus:outline-none focus:ring focus:ring-opacity-40" />
+                                    <input {...register("name", { required: true })}
+                                    type="text" name="name" id="name" placeholder="Your Full Name" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-pmColor focus:ring-pmColor focus:outline-none focus:ring focus:ring-opacity-40" />
+                                     {errors.email && <span className="text-xs text-red-500">This Name field is required</span>}
                                 </div>
                                 <div className="mt-6">
-                                    <label htmlFor="email" className="block mb-2 text-sm text-gray-600 dark:text-gray-200 flex items-center gap-2">Email Address <FaStarOfLife className="text-red-500 text-[8px]" /></label>
-                                    <input type="email" name="email" id="email" placeholder="example@example.com" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-pmColor focus:ring-pmColor focus:outline-none focus:ring focus:ring-opacity-40" />
+                                    <label htmlFor="email" className=" mb-2 text-sm text-gray-600 dark:text-gray-200 flex items-center gap-2">Email Address <FaStarOfLife className="text-red-500 text-[8px]" /></label>
+                                    <input {...register("email", { required: true })}
+                                    type="email" name="email" id="email" placeholder="example@example.com" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-pmColor focus:ring-pmColor focus:outline-none focus:ring focus:ring-opacity-40" />
+                                    {errors.email && <span className="text-xs text-red-500">This Email field is required</span>}
                                 </div>
                                 <div className="mt-6">
-                                    <label htmlFor="photo" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Your Photo</label>
-                                    <input type="file" name="photo" id="photo" placeholder="" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-pmColor focus:ring-pmColor focus:outline-none focus:ring focus:ring-opacity-40" />
+                                    <label htmlFor="photo" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Your PhotoURL</label>
+                                    <input {...register('photoURL')}
+                                    type="text" name="photoURL" id="photo" placeholder="Your PhotoURL" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-pmColor focus:ring-pmColor focus:outline-none focus:ring focus:ring-opacity-40" />
                                 </div>
 
                                 <div className="mt-6">
@@ -49,12 +131,14 @@ const Register = () => {
                                         <label htmlFor="password" className="text-sm text-gray-600 dark:text-gray-200 flex items-center gap-2">Password <FaStarOfLife className="text-red-500 text-[8px]" /></label>
                                     </div>
                                     <div className=" relative">
-                                        <input type={showPassword ? 'text' : 'password'} name="password" id="password" placeholder="Your Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-pmColor dark:focus:border-pmColor focus:ring-pmColor focus:outline-none focus:ring focus:ring-opacity-40" />
+                                        <input {...register("password", { required: true })}
+                                        type={showPassword ? 'text' : 'password'} name="password" id="password" placeholder="Your Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:border-gray-700 focus:border-pmColor dark:focus:border-pmColor focus:ring-pmColor focus:outline-none focus:ring focus:ring-opacity-40" />
                                         {showPassword ? <FaEye onClick={() => setShowPassword(!showPassword)} className="w-5 h-5 absolute top-[50%] translate-y-[-50%] right-3" src="https://i.ibb.co/3fxNPxp/view.png" alt="" /> : <FaEyeSlash onClick={() => setShowPassword(!showPassword)} className="w-5 h-5 absolute top-[50%] translate-y-[-50%] right-3" src="https://i.ibb.co/pj04qyJ/hide.png" alt="" />}
                                     </div>
+                                        {errors.password && <span className="text-xs text-red-500">This Password field is required</span>}
                                 </div>
 
-
+                                  <span className="text-xs text-red-500">{error}</span>
                                 <div className="mt-6">
                                     <button className="group relative inline-flex w-full text-center mx-auto text-sm text-nowrap py-2 items-center justify-center overflow-hidden rounded-md bg-pmColor px-5 font-medium text-neutral-200">
                                         <span>Sign Up</span>
@@ -64,7 +148,7 @@ const Register = () => {
                                     </button>
                                 </div>
                             </form>
-                            <a className="flex items-center justify-center px-6 py-3 mt-5 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <a onClick={() => handleProvider(googleProvider)} className="flex items-center justify-center px-6 py-3 mt-5 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <svg className="w-6 h-6 mx-2" viewBox="0 0 40 40">
                                     <path d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.045 27.2142 24.3525 30 20 30C14.4775 30 10 25.5225 10 20C10 14.4775 14.4775 9.99999 20 9.99999C22.5492 9.99999 24.8683 10.9617 26.6342 12.5325L31.3483 7.81833C28.3717 5.04416 24.39 3.33333 20 3.33333C10.7958 3.33333 3.33335 10.7958 3.33335 20C3.33335 29.2042 10.7958 36.6667 20 36.6667C29.2042 36.6667 36.6667 29.2042 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z" fill="#FFC107" />
                                     <path d="M5.25497 12.2425L10.7308 16.2583C12.2125 12.59 15.8008 9.99999 20 9.99999C22.5491 9.99999 24.8683 10.9617 26.6341 12.5325L31.3483 7.81833C28.3716 5.04416 24.39 3.33333 20 3.33333C13.5983 3.33333 8.04663 6.94749 5.25497 12.2425Z" fill="#FF3D00" />

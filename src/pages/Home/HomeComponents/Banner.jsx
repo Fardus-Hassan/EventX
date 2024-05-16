@@ -70,7 +70,7 @@ const Banner = () => {
         //     </Swiper>
         // </div>
 
-        <div className="mb-10 sm:mb-[100px] relative lg:h-[calc(100vh-88px)] md:h-[calc(100vh-85px)] h-[calc(100vh-78px)] overflow-y-auto bg-cover bg-top bg-no-repeat bg-fixed" style={{ backgroundImage: "url('https://images.pexels.com/photos/416405/pexels-photo-416405.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }}>
+        <div className="mb-10 sm:mb-[100px] relative lg:h-[calc(100vh-88px)] md:h-[calc(100vh-85px)] h-[calc(100vh-62px)] overflow-y-auto bg-cover bg-top bg-no-repeat bg-fixed" style={{ backgroundImage: "url('https://images.pexels.com/photos/416405/pexels-photo-416405.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }}>
             <div className=' absolute top-[50%] translate-y-[-50%] text-center z-30 left-[50%] translate-x-[-50%] w-[90%]'>
                 <h1 className=' max-w-[900px] mx-auto text-white lg:text-[46px] text-[35px] font-black font-poppins'>Crafting Unforgettable Experiences for Every <span className='text-pmColor'><Typewriter
             words={['Festivity', 'Occasion', 'Event']}
@@ -83,10 +83,11 @@ const Banner = () => {
             cursor='pointer'
           /></span></h1>
                 <p className=' max-w-[800px] mx-auto text-white lg:text-[16px] text-[14px] mt-4 mb-8 font-montserrat'> At EventX, we specialize in meticulously orchestrating events of all scales, ensuring every detail exceeds expectations. From intimate gatherings to grand affairs, trust us for flawless execution.</p>
-                <form className="input bg-white input-bordered flex md:w-[700px] w-full mx-auto md:flex-row flex-col items-center md:h-14 gap-2 rounded-full outline-none border-none">
+                <form className="input bg-white dark:bg-themeColor3 input-bordered flex md:w-[700px] w-full mx-auto md:flex-row flex-col items-center md:h-14 gap-2 rounded-full outline-none border-none">
                     <input
                         // onChange={handleSubmit}
-                        type="text" name='search' className="grow w-ful rounded-3xl font-heebo md:text-left text-center md:pt-0 pt-3 font-medium border-none outline-none" placeholder="Search" />
+                        type="text" name='search' className="grow w-ful rounded-3xl
+                         font-heebo md:text-left text-center pl-1 md:pt-0 pt-3 font-medium border-none outline-none" placeholder="Search" />
                     {/* <Link to={`/country/${realValue}`} className="inline-block"> */}
                     <button type="submit" className="bg-pmColor px-5 rounded-3xl text-base py-2 text-white md:mt-0 mt-3 font-heebo font-semibold">Search</button>
                     {/* </Link> */}

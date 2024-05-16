@@ -1,23 +1,73 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-
+import { FaStarOfLife } from "react-icons/fa";
+import { useForm } from "react-hook-form";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import toast from "react-hot-toast";
+import { auth } from "../firebase.config";
+import { GlobalStateContext } from "../Global/GlobalContext";
 
 
 const Login = () => {
 
+    const {login} = useContext(GlobalStateContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const form = location?.state || '/';
+    const googleProvider = new GoogleAuthProvider();
+    const [error, setError] = useState(null)
+    console.log(error);
     const [showPassword, setShowPassword] = useState(false)
 
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm()
+
+
+    const handleProvider = (provider) => {
+
+        return signInWithPopup(auth, provider).then(result => {
+            if (result.user) {
+
+                toast.success('Login Successfully');
+                navigate(form);
+            }
+        }).catch(error => {
+            console.log(error);
+        })
+    }
+
+
+    const onSubmit = (data) => {
+        setError('')
+        const { email, password } = data;
+        login(email, password).then((result) => {
+            if (result.user) {
+                navigate(form);
+                toast.success('Login Successfully');
+            }
+        })
+            .catch((error) => {
+
+                setError(error.message)
+            });
+    }
+
+
     return (
-        <div className="bg-white dark:bg-themeColor3">
+        <div className="bg-white dark:bg-themeColor">
             <div className="flex justify-center h-[95vh]">
                 <div className="relative h-[95vh] overflow-y-auto bg-center bg-no-repeat bg-fixed hidden bg-cover lg:block lg:w-2/3" style={{ backgroundImage: "url(https://images.pexels.com/photos/196652/pexels-photo-196652.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)" }}>
                     <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
                         <div>
-                        <h1 className='text-3xl text-white font-poppins font-black mb-4'>Event<span className='text-pmColor'>X</span></h1>
+                            <h1 className='text-3xl text-white font-poppins font-black mb-4'>Event<span className='text-pmColor'>X</span></h1>
                             <p className="max-w-xl mt-3 text-gray-300">
-                            Welcome back! Log in to access your account and manage your events seamlessly. Don't have an account? Sign up now to unlock exclusive features and event planning tools.
+                                Welcome back! Log in to access your account and manage your events seamlessly. Don't have an account? Sign up now to unlock exclusive features and event planning tools.
                             </p>
                         </div>
                     </div>
@@ -27,29 +77,34 @@ const Login = () => {
                     <div className="flex-1">
                         <div className="text-center">
                             <div className="flex justify-center mx-auto">
-                            <h1 className='text-3xl dark:text-white dark:text-opacity-80 text-black text-opacity-70 font-poppins font-black mb-3'>Event<span className='text-pmColor'>X</span></h1>
+                                <h1 className='text-3xl dark:text-white dark:text-opacity-80 text-black text-opacity-70 font-poppins font-black mb-3'>Event<span className='text-pmColor'>X</span></h1>
 
                             </div>
                             <p className=" text-gray-500 dark:text-gray-300">Sign in to access your features</p>
                         </div>
                         <div className="mt-8">
-                            <form>
-                                <div>
-                                    <label htmlFor="email" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email Address</label>
-                                    <input type="email" name="email" id="email" placeholder="example@example.com" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-pmColor focus:ring-pmColor focus:outline-none focus:ring focus:ring-opacity-40" />
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <div className="mt-6">
+                                    <label htmlFor="email" className=" mb-2 text-sm text-gray-600 dark:text-gray-200 flex items-center gap-2">Email Address <FaStarOfLife className="text-red-500 text-[8px]" /></label>
+                                    <input {...register("email", { required: true })}
+                                    type="email" name="email" id="email" placeholder="example@example.com" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-pmColor focus:ring-pmColor focus:outline-none focus:ring focus:ring-opacity-40" />
+                                     {errors.email && <span className="text-xs text-red-500">This Email field is required</span>}
                                 </div>
 
                                 <div className="mt-6">
                                     <div className="flex justify-between mb-2">
-                                        <label htmlFor="password" className="text-sm text-gray-600 dark:text-gray-200">Password</label>
+                                        <label htmlFor="password" className="text-sm text-gray-600 dark:text-gray-200 flex items-center gap-2">Password <FaStarOfLife className="text-red-500 text-[8px]" /></label>
                                         <a href="#" className="text-sm text-gray-400 focus:text-pmColor hover:text-pmColor hover:underline">Forgot password?</a>
                                     </div>
                                     <div className=" relative">
-                                        <input type={showPassword ? 'text' : 'password'} name="password" id="password" placeholder="Your Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-pmColor dark:focus:border-pmColor focus:ring-pmColor focus:outline-none focus:ring focus:ring-opacity-40" />
+                                        <input  {...register("password", { required: true })}
+                                        type={showPassword ? 'text' : 'password'} name="password" id="password" placeholder="Your Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:border-gray-700 focus:border-pmColor dark:focus:border-pmColor focus:ring-pmColor focus:outline-none focus:ring focus:ring-opacity-40" />
                                         {showPassword ? <FaEye onClick={() => setShowPassword(!showPassword)} className="w-5 h-5 absolute top-[50%] translate-y-[-50%] right-3" src="https://i.ibb.co/3fxNPxp/view.png" alt="" /> : <FaEyeSlash onClick={() => setShowPassword(!showPassword)} className="w-5 h-5 absolute top-[50%] translate-y-[-50%] right-3" src="https://i.ibb.co/pj04qyJ/hide.png" alt="" />}
-                                    </div>
-                                </div>
 
+                                    </div>
+                                        {errors.password && <span className="text-xs text-red-500">This Password field is required</span>}
+                                </div>
+                                   <span className="text-xs text-red-500">{error}</span>
 
                                 <div className="mt-6">
                                     <button className="group relative inline-flex w-full text-center mx-auto text-sm text-nowrap py-2 items-center justify-center overflow-hidden rounded-md bg-pmColor px-5 font-medium text-neutral-200">
@@ -60,7 +115,7 @@ const Login = () => {
                                     </button>
                                 </div>
                             </form>
-                            <a className="flex items-center justify-center px-6 py-3 mt-5 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <a onClick={() => handleProvider(googleProvider)} className="flex items-center justify-center px-6 py-3 mt-5 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <svg className="w-6 h-6 mx-2" viewBox="0 0 40 40">
                                     <path d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.045 27.2142 24.3525 30 20 30C14.4775 30 10 25.5225 10 20C10 14.4775 14.4775 9.99999 20 9.99999C22.5492 9.99999 24.8683 10.9617 26.6342 12.5325L31.3483 7.81833C28.3717 5.04416 24.39 3.33333 20 3.33333C10.7958 3.33333 3.33335 10.7958 3.33335 20C3.33335 29.2042 10.7958 36.6667 20 36.6667C29.2042 36.6667 36.6667 29.2042 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z" fill="#FFC107" />
                                     <path d="M5.25497 12.2425L10.7308 16.2583C12.2125 12.59 15.8008 9.99999 20 9.99999C22.5491 9.99999 24.8683 10.9617 26.6341 12.5325L31.3483 7.81833C28.3716 5.04416 24.39 3.33333 20 3.33333C13.5983 3.33333 8.04663 6.94749 5.25497 12.2425Z" fill="#FF3D00" />
