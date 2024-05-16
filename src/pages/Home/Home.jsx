@@ -4,6 +4,7 @@ import Banner from './HomeComponents/Banner';
 import MainServices from './HomeComponents/MainServices';
 import OurAchievement from './HomeComponents/OurAchievement';
 import PopulerServices from './HomeComponents/PopulerServices';
+import Team from './HomeComponents/Team';
 
 const Home = () => {
     return (
@@ -14,6 +15,7 @@ const Home = () => {
             <AskQuestion></AskQuestion>
             <MainServices></MainServices>
             <OurAchievement></OurAchievement>
+            <Team></Team>
         </div>
     );
 };
