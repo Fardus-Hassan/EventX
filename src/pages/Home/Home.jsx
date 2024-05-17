@@ -4,6 +4,7 @@ import Banner from './HomeComponents/Banner';
 import MainServices from './HomeComponents/MainServices';
 import OurAchievement from './HomeComponents/OurAchievement';
 import PopulerServices from './HomeComponents/PopulerServices';
+import Reviews from './HomeComponents/Reviews';
 import Team from './HomeComponents/Team';
 
 const Home = () => {
@@ -16,6 +17,7 @@ const Home = () => {
             <MainServices></MainServices>
             <OurAchievement></OurAchievement>
             <Team></Team>
+            <Reviews></Reviews>
         </div>
     );
 };

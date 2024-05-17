@@ -48,7 +48,7 @@ const AskQuestion = () => {
                         </div>
                     </div>
                 </div>
-                <div className='lg:w-[45%] lg:h-[600px] h-[400px]'>
+                <div className='lg:w-[45%] lg:h-[500px] h-[400px]'>
                     <img className='h-full object-cover rounded-xl' src="https://images.pexels.com/photos/1157557/pexels-photo-1157557.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                 </div>
             </div>

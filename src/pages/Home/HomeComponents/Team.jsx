@@ -15,9 +15,9 @@ const Team = () => {
                 </div>
             </div>
             <div data-aos="fade-down" data-aos-duration="1000" className="mt-10 grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5">
-                <div data-aos="fade-down" data-aos-duration="1000" className="shadow-xl rounded-3xl pb-5 bg-white dark:bg-themeColor3">
+                <div data-aos="fade-down" data-aos-duration="1000" className="shadow-xl rounded-2xl pb-5 bg-white dark:bg-themeColor3">
                     <div>
-                        <img className="w-full rounded-t-3xl mx-auto object-top object-cover h-[300px]" src="https://images.pexels.com/photos/8872162/pexels-photo-8872162.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                        <img className="w-full rounded-t-2xl mx-auto object-top object-cover h-[300px]" src="https://images.pexels.com/photos/8872162/pexels-photo-8872162.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                     </div>
                     <div className="sm:px-0 px-3">
                         <h1 className="text-center text-opacity-90 font-nunito text-xl my-3 font-semibold text-black dark:text-white">Sarah Johnson</h1>
@@ -37,9 +37,9 @@ const Team = () => {
                         </div>
                     </div>
                 </div>
-                <div data-aos="fade-down" data-aos-duration="1000" className="shadow-xl rounded-3xl pb-5 bg-white dark:bg-themeColor3">
+                <div data-aos="fade-down" data-aos-duration="1000" className="shadow-xl rounded-2xl pb-5 bg-white dark:bg-themeColor3">
                     <div>
-                        <img className="w-full rounded-t-3xl mx-auto object-top object-cover h-[300px]" src="https://images.pexels.com/photos/4242995/pexels-photo-4242995.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                        <img className="w-full rounded-t-2xl mx-auto object-top object-cover h-[300px]" src="https://images.pexels.com/photos/4242995/pexels-photo-4242995.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                     </div>
                     <div className="sm:px-0 px-3">
                         <h1 className="text-center text-opacity-90 font-nunito text-xl my-3 font-semibold text-black dark:text-white">Michael Wong</h1>
@@ -59,9 +59,9 @@ const Team = () => {
                         </div>
                     </div>
                 </div>
-                <div data-aos="fade-down" data-aos-duration="1000" className="shadow-xl rounded-3xl pb-5 bg-white dark:bg-themeColor3 text-black dark:text-white">
+                <div data-aos="fade-down" data-aos-duration="1000" className="shadow-xl rounded-2xl pb-5 bg-white dark:bg-themeColor3 text-black dark:text-white">
                     <div>
-                        <img className="w-full rounded-t-3xl mx-auto object-cover object-center h-[300px]" src="https://images.pexels.com/photos/7654454/pexels-photo-7654454.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                        <img className="w-full rounded-t-2xl mx-auto object-cover object-center h-[300px]" src="https://images.pexels.com/photos/7654454/pexels-photo-7654454.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                     </div>
                     <div className="sm:px-0 px-3">
                         <h1 className="text-center text-opacity-90 font-nunito text-xl my-3 font-semibold text-black dark:text-white">Emily Clark</h1>
@@ -81,9 +81,9 @@ const Team = () => {
                         </div>
                     </div>
                 </div>
-                <div data-aos="fade-down" data-aos-duration="1000" className="shadow-xl rounded-3xl pb-5 bg-white dark:bg-themeColor3 text-black dark:text-white">
+                <div data-aos="fade-down" data-aos-duration="1000" className="shadow-xl rounded-2xl pb-5 bg-white dark:bg-themeColor3 text-black dark:text-white">
                     <div>
-                        <img className="w-full rounded-t-3xl object-top object-cover mx-auto h-[300px]" src="https://images.pexels.com/photos/4195342/pexels-photo-4195342.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                        <img className="w-full rounded-t-2xl object-top object-cover mx-auto h-[300px]" src="https://images.pexels.com/photos/4195342/pexels-photo-4195342.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                     </div>
                     <div className="sm:px-0 px-3">
                         <h1 className="text-center text-opacity-90 font-nunito text-xl my-3 font-semibold text-black dark:text-white">Lucas Patel</h1>
