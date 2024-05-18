@@ -7,6 +7,7 @@ import Error from "../components/sheared/Error";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import PrivateRoute from "./PrivateRoute";
+import Details from "../pages/Details/Details";
 
 const Routes = createBrowserRouter([
     {
@@ -33,6 +34,10 @@ const Routes = createBrowserRouter([
             {
                 path: "/register",
                 element: <Register></Register>,
+            },
+            {
+                path: "/details",
+                element: <Details></Details>,
             }
         ],
     },
