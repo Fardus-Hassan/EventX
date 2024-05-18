@@ -7,7 +7,7 @@ const OurAchievement = () => {
                 <h1 className="text-pmColor text-3xl sm:text-5xl font-bold font-poppins">Our Achievement</h1>
                 <p className="text-black dark:text-white mt-6 mb-10 max-w-[700px] font-medium sm:text-lg font-montserrat">Embark on our journey of success, marked by milestones, accolades, and delighted clients, shaping memorable experiences along the way.</p>
             </div>
-            <div className='sm:pt-[100px] pt-10 relative overflow-y-auto bg-cover bg-center bg-no-repeat bg-fixed' style={{ backgroundImage: "url('https://images.pexels.com/photos/2747446/pexels-photo-2747446.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }}>
+            <div className='sm:pt-[100px] pt-10 relative overflow-y-auto bg-cover bg-center bg-no-repeat bg-fixed' style={{ backgroundImage: "url('https://images.pexels.com/photos/5152571/pexels-photo-5152571.jpeg')" }}>
                 <div className='bg-pmColor bg-opacity-70 w-full h-full absolute top-0'>
 
                 </div>

@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { SiSkillshare } from "react-icons/si";
 
 const Footer = () => {
     return (

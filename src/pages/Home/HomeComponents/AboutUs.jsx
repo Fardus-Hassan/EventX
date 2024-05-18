@@ -13,10 +13,15 @@ const AboutUs = () => {
                 </div>
                 <div className="max-w-[1440px] mx-auto sm:mb-16 flex lg:flex-row flex-col justify-between items-center sm:gap-20 gap-8">
                     <div data-aos="fade-down" data-aos-duration="1000" className="relative">
-                        <div className='flex justify-between'>
-                            <img className=' block w-[48.5%] rounded-xl sm:mb-20 object-cover h-[500px] relative overflow-y-auto bg-cover bg-center bg-no-repeat bg-fixed' src="https://images.pexels.com/photos/5428771/pexels-photo-5428771.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="" />
-                            <img className='block w-[48.5%] rounded-xl object-cover sm:h-[600px] h-[500px]' src="https://images.pexels.com/photos/1540406/pexels-photo-1540406.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                        <div className="flex justify-between">
+                            <div className="relative overflow-hidden w-[48.5%] h-[500px] sm:mb-20 rounded-xl">
+                                <img className="block w-full h-full object-cover transition-transform duration-500 transform hover:scale-110" src="https://images.pexels.com/photos/5428771/pexels-photo-5428771.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="" />
+                            </div>
+                            <div className="relative overflow-hidden w-[48.5%] sm:h-[600px] rounded-xl">
+                                <img className="block w-full h-full object-cover transition-transform duration-500 transform hover:scale-110" src="https://images.pexels.com/photos/1540406/pexels-photo-1540406.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                            </div>
                         </div>
+
                         <div className='sm:max-w-[400px] h-fit p-6 mt-4 sm:mt-0 bg-pmColor bg-opacity-80 rounded-xl sm:absolute sm:bottom-[-8%]'>
                             <div className='flex justify-between items-center gap-5'>
                                 <h1 className='text-white flex flex-col justify-center items-center font-poppins font-semibold text-3xl'><span>10 +</span><span>Years</span></h1>

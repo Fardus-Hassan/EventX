@@ -23,7 +23,7 @@ const AskQuestion = () => {
                     <div className="collapse collapse-plus bg-pmColor">
                         <input type="radio" name="my-accordion-3" defaultChecked />
                         <div className="collapse-title lg:text-xl font-semibold font-poppins">
-                        What types of events do you manage?
+                            What types of events do you manage?
                         </div>
                         <div className="collapse-content">
                             <p className='font-montserrat text-sm'>We specialize in managing a wide range of events, including weddings, corporate gatherings, conferences, social parties, and more.</p>
@@ -32,7 +32,7 @@ const AskQuestion = () => {
                     <div className="collapse collapse-plus bg-pmColor sm:my-5 my-2">
                         <input type="radio" name="my-accordion-3" />
                         <div className="collapse-title lg:text-xl font-semibold font-poppins">
-                        How can I reserve a date for my event?
+                            How can I reserve a date for my event?
                         </div>
                         <div className="collapse-content">
                             <p className='font-montserrat text-sm'>You can easily reserve a date for your event by visiting our website and filling out our online booking form. Simply provide your event details, preferred date, and any specific requirements, and our team will assist you with the booking process.</p>
@@ -41,16 +41,17 @@ const AskQuestion = () => {
                     <div className="collapse collapse-plus bg-pmColor">
                         <input type="radio" name="my-accordion-3" />
                         <div className="collapse-title lg:text-xl font-semibold font-poppins">
-                        What services do you offer for event planning?
+                            What services do you offer for event planning?
                         </div>
                         <div className="collapse-content">
                             <p className='font-montserrat text-sm'> We offer comprehensive event planning services, including venue selection, theme design, catering, entertainment booking, on-site logistics, and more. Our experienced team will work closely with you to tailor our services to meet your specific needs and ensure a successful event.</p>
                         </div>
                     </div>
                 </div>
-                <div className='lg:w-[45%] lg:h-[500px] h-[400px]'>
-                    <img className='h-full object-cover rounded-xl' src="https://images.pexels.com/photos/1157557/pexels-photo-1157557.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                <div className='lg:w-[45%] lg:h-[500px] h-[400px] relative overflow-hidden rounded-xl'>
+                    <img className='h-full object-cover rounded-xl transition-transform duration-500 transform hover:scale-110' src="https://images.pexels.com/photos/1157557/pexels-photo-1157557.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                 </div>
+
             </div>
         </div>
     );
