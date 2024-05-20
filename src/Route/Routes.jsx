@@ -8,11 +8,16 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import PrivateRoute from "./PrivateRoute";
 import Details from "../pages/Details/Details";
+import ScrollToTop from "../components/ScrollToTop";
 
 const Routes = createBrowserRouter([
     {
         path: "/",
-        element: <Root />,
+        element: (
+            <ScrollToTop>
+                <Root />
+            </ScrollToTop>
+        ),
         errorElement: <Error></Error>,
         children: [
             {

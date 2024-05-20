@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const ServicesCard = () => {
     return (
         <div>
-            <div className="max-w-2xl overflow-hidden rounded-2xl bg-gray-200 dark:bg-themeColor3">
+            <div className="w-full overflow-hidden rounded-2xl bg-gray-200 dark:bg-themeColor3 mx-auto">
                 <div className="overflow-hidden rounded-t-2xl">
                     <img className="w-full mx-auto object-cover object-top h-[300px] transform transition-transform duration-500 hover:scale-110" src="https://html.rrdevs.net/printfix/assets/imgs/blog/letest-blog/blog-card2.jpg" alt="" />
                 </div>
