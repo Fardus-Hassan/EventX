@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { SiSkillshare } from "react-icons/si";
 import { GlobalStateContext } from '../../Global/GlobalContext';
 
 const Navigation = () => {
@@ -9,7 +8,6 @@ const Navigation = () => {
 
 
     const [isOpen, setIsOpen] = useState(false);
-    const [icon, setIcon] = useState("");
     // console.log(icon);
     const [isDark, setIsDark] = useState(() => {
         // Retrieve theme preference from local storage or default to false (light theme)
@@ -31,8 +29,6 @@ const Navigation = () => {
             html.classList.remove("dark");
         }
 
-        // Update the icon state based on the theme
-        setIcon(isDark ? "swap-on" : "swap-off");
     }, [isDark]);
 
     const toggle = () => {

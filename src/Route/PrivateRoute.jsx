@@ -1,24 +1,19 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { GlobalStateContext } from "../Global/GlobalContext";
+import Spinner from "../components/Spinner";
 
 
 
 const PrivateRoute = ({ children }) => {
 
+    const { user, loading, setLoading } = useContext(GlobalStateContext);
     const location = useLocation();
-
-
-    const { user, loading } = useContext(GlobalStateContext);
 
     console.log(user);
 
-    
-    
      if (loading) {
-        return <div className="flex justify-center items-center w-full mt-[200px] absolute">
-            <span className="loading loading-bars loading-lg text-pmColor"></span>
-        </div>
+        return <Spinner></Spinner>
     }
     else if (user) {
         return children

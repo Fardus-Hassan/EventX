@@ -92,7 +92,7 @@ const GlobalContext = ({ children }) => {
 
     return (
 
-        <GlobalStateContext.Provider value={{ user, register, login, logout, setUser, updateUserProfile, loading, }}>
+        <GlobalStateContext.Provider value={{ user, setLoading, register, login, logout, setUser, updateUserProfile, loading, }}>
             {children}
         </GlobalStateContext.Provider>
 

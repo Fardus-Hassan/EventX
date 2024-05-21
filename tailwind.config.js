@@ -15,7 +15,10 @@ export default {
       fontFamily : {
         poppins : ["Poppins", "sans-serif"],
         montserrat : ["Montserrat", "sans-serif"]
-      }
+      },
+      screens: {
+        'xs': {'max': '320px'},
+      },
     },
   },
   plugins: [require('daisyui')],
