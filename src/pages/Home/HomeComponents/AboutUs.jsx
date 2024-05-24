@@ -3,7 +3,7 @@ import { FaArrowRight } from "react-icons/fa";
 
 const AboutUs = () => {
     return (
-        <div className='max-w-[1440px] w-[98%] mx-auto pb-10 sm:pb-[100px]'>
+        <div className='max-w-[1440px] w-[95%] mx-auto pb-10 sm:pb-[100px]'>
             <div>
                 <div className="sm:text-right text-center sm:flex sm:flex-col sm:justify-end sm:items-end">
                     <div className=' max-w-[700px] mb-10'>

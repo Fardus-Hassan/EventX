@@ -10,6 +10,7 @@ import { CiBookmarkCheck } from "react-icons/ci";
 import { GrUpdate } from "react-icons/gr";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
+import { TbLayoutDashboardFilled } from "react-icons/tb";
 
 const Dashboard = () => {
 
@@ -50,13 +51,9 @@ const Dashboard = () => {
 
     return (
         <WithLoading>
-            <div className='text-black dark:text-white flex bg-white dark:bg-themeColor h-screen'>
-                <div className={`border-r border-pmColor border-opacity-50 lg:static absolute duration-500 ${open ? " translate-x-0 " : " translate-x-[-100%] lg:translate-x-0"} bg-white dark:bg-themeColor3`}>
-                    <aside className="flex flex-col w-64 xs:w-screen h-screen px-5 py-8 overflow-y-auto">
-                        <div onClick={()=>setOpen(false)} className="mb-5 justify-end sm:hidden -translate-y-2 hidden xs:flex ">
-                            <IoMdClose className="text-2xl text-pmColor" />
-
-                        </div>
+            <div className='text-black dark:text-white flex bg-white dark:bg-themeColor max-h-screen overflow-hidden'>
+                <div className={`border-r border-pmColor border-opacity-50 lg:static absolute duration-500 z-50 ${open ? " translate-x-0 " : " translate-x-[-100%] lg:translate-x-0"} bg-white dark:bg-themeColor3 h-screen`}>
+                    <aside className="flex flex-col w-64 xs:w-screen h-screen px-5 py-8 overflow-y-auto xs:pt-20">
                         <div className="flex justify-between items-start">
                             <Link to='/' className='mb-5'>
                                 <h1 className='sm:text-3xl text-2xl dark:text-white dark:text-opacity-80 text-black text-opacity-70 font-poppins font-black'>Event<span className='text-pmColor'>X</span></h1>
@@ -81,37 +78,43 @@ const Dashboard = () => {
                                     <span className="mx-2 text-sm font-medium">Home</span>
                                 </Link>
 
-                                <Link className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" to="/services">
+                                <Link className="flex items-center px-3 py-2 mb-10 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" to="/services">
                                     <MdMiscellaneousServices className="text-xl" />
 
                                     <span className="mx-2 text-sm font-medium">Services</span>
                                 </Link>
 
+                                <NavLink onClick={() => setOpen(false)} className="flex items-center px-3 py-2  sm:mt-10 mt-6 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-pmColor dark:hover:bg-pmColor" to="/dashboard" end>
+                                    <TbLayoutDashboardFilled className="text-xl" />
 
+                                    <span className="mx-2 text-sm font-medium">DashBoard</span>
+                                </NavLink>
 
-                                <a className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
-                                    <IoIosAddCircleOutline className="text-xl" />
+                                <div className="space-y-3 ml-7">
+                                    <NavLink onClick={() => setOpen(false)} className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-pmColor dark:hover:bg-pmColor" to="add-service">
+                                        <IoIosAddCircleOutline className="text-xl" />
 
-                                    <span className="mx-2 text-sm font-medium">Add Service</span>
-                                </a>
+                                        <span className="mx-2 text-sm font-medium">Add Service</span>
+                                    </NavLink>
 
-                                <a className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
-                                    <MdManageHistory className="text-xl" />
+                                    <NavLink onClick={() => setOpen(false)} className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-pmColor dark:hover:bg-pmColor" to="manage-services">
+                                        <MdManageHistory className="text-xl" />
 
-                                    <span className="mx-2 text-sm font-medium">Manage Services</span>
-                                </a>
+                                        <span className="mx-2 text-sm font-medium">Manage Services</span>
+                                    </NavLink>
 
-                                <a className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
-                                    <CiBookmarkCheck className="text-xl" />
+                                    <NavLink onClick={() => setOpen(false)} className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-pmColor dark:hover:bg-pmColor" to="booked-service">
+                                        <CiBookmarkCheck className="text-xl" />
 
-                                    <span className="mx-2 text-sm font-medium">Booked Service</span>
-                                </a>
+                                        <span className="mx-2 text-sm font-medium">Booked Service</span>
+                                    </NavLink>
 
-                                <a className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
-                                    <GrUpdate className="text-sm ml-1" />
+                                    <NavLink onClick={() => setOpen(false)} className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-pmColor dark:hover:bg-pmColor" to="service-to-do">
+                                        <GrUpdate className="text-sm ml-1" />
 
-                                    <span className="mx-2 text-sm font-medium">Service To Do</span>
-                                </a>
+                                        <span className="mx-2 text-sm font-medium">Service To Do</span>
+                                    </NavLink>
+                                </div>
 
                             </nav>
 
@@ -137,17 +140,20 @@ const Dashboard = () => {
                     </aside>
                 </div>
                 <div className="bg-white dark:bg-themeColor flex-1 pt-5">
-                    <div className="w-[95%] mx-auto">
-                        <Outlet></Outlet>
-                    </div>
-                    <div className="flex justify-end w-[95%] mx-auto">
-                        <div onClick={() => setOpen(!open)} className={`bg-pmColor bg-opacity-50 dark:bg-opacity-100 shadow-2xl dark:bg-themeColor3 w-fit sm:p-4 p-3 rounded-xl lg:hidden`}>
+                    <div className="flex justify-end w-full pr-5 mx-auto lg:hidden fixed z-50">
+                        <div onClick={() => setOpen(!open)} className={`bg-pmColor absolute z-50 dark:bg-opacity-100 shadow-2xl dark:bg-themeColor3 w-fit sm:p-4 p-3 rounded-xl `}>
                             {
                                 open ?
                                     <IoMdClose className="sm:text-2xl text-lg" />
                                     :
                                     <FaBarsStaggered className="sm:text-2xl text-lg" />
                             }
+                        </div>
+                    </div>
+                    <div className="max-h-screen overflow-y-auto">
+                        <div className="w-[95%] mx-auto">
+
+                            <Outlet></Outlet>
                         </div>
                     </div>
                 </div>

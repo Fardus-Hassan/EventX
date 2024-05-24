@@ -2,7 +2,7 @@ import React from 'react';
 
 const MainServices = () => {
     return (
-            <div className='pb-10 sm:pb-[100px] w-[98%] mx-auto max-w-[1440px]'>
+            <div className='pb-10 sm:pb-[100px] w-[95%] mx-auto max-w-[1440px]'>
                 <div className="sm:text-right text-center sm:flex sm:flex-col sm:justify-end sm:items-end">
                     <div className=' max-w-[700px] mb-10'>
                         <h1 className="text-pmColor text-3xl sm:text-5xl font-bold font-poppins">Our Main Services</h1>

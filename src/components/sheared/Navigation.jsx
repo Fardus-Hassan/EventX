@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { GlobalStateContext } from '../../Global/GlobalContext';
+import { IoSearch } from "react-icons/io5";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
 const Navigation = () => {
 
@@ -35,10 +37,35 @@ const Navigation = () => {
         setIsDark(!isDark);
     };
 
+    const [open, setOpen] = useState(false);
+
 
 
     return (
         <nav className=" bg-white shadow dark:bg-themeColor3 fixed w-full z-50">
+            <div className={`w-screen lg:h-[120px] sm:h-[200px] h-[175px] bg-white dark:bg-themeColor duration-300 absolute ${open ? "translate-y-0" : "translate-y-[-100%]"} left-0 z-50`}>
+                <div className='flex sm:justify-end justify-center md:mr-10 sm:mr-5 sm:mt-0 mt-3 sm:items-center h-full z-50 hover:cursor-pointer'>
+                    <IoIosCloseCircleOutline
+                        onClick={() => setOpen(!open)}
+                        className='text-pmColor text-5xl' />
+                </div>
+                <div className='absolute flex justify-center lg:translate-y-[-170%] sm:translate-y-[-240%] translate-y-[-220%] sm:w-[50%] w-[90%] left-[50%] translate-x-[-50%]'>
+                    <div className='w-full'>
+                        <div className="flex  items-center flex-row-reverse mt-2">
+                            <Link to='/services' onClick={() => {
+                                {
+                                    setOpen(!open)
+                                    setIsOpen(!isOpen)
+                                }
+                            }} className="absolute bg-pmColor py-[11px] rounded-r px-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-6 h-6 text-white"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
+                            </Link>
+
+                            <input type="text" placeholder="Search Service Name" className="block w-full py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg pl-5 pr-12 rtl:pr-11 rtl:pl-5 dark:bg-themeColor3 dark:text-gray-300 dark:border-gray-600 focus:border-pmColor dark:focus:border-pmColor focus:outline-none" />
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div className="max-w-[1440px] py-4 sm:py-6 lg:py-2 lg:w-[95%] w-[90%] mx-auto">
                 <div className="lg:flex lg:items-center lg:justify-between">
                     <div className="flex items-center justify-between">
@@ -70,16 +97,16 @@ const Navigation = () => {
                                 )}
                             </button>
                             {user ? <div className="dropdown dropdown-end">
-                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                                        <div className="w-10 rounded-full">
-                                            <img src={user?.photoURL || "https://i.ibb.co/m9jpXGZ/profile-user.png"}  alt="User" />
-                                        </div>
+                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                    <div className="w-10 rounded-full">
+                                        <img src={user?.photoURL || "https://i.ibb.co/m9jpXGZ/profile-user.png"} alt="User" />
                                     </div>
-                                    <ul tabIndex={0} className="mt-3 z-40 p-2 shadow menu menu-sm dropdown-content text-black dark:text-white rounded-box w-fit bg-white dark:bg-themeColor3">
-                                        <li><a>{user?.displayName}</a></li>
-                                        <li><a>{user?.email}</a></li>
-                                        <li><a onClick={()=>logout()} className='text-pmColor'>Logout</a></li>
-                                    </ul>
+                                </div>
+                                <ul tabIndex={0} className="mt-3 z-40 p-2 shadow menu menu-sm dropdown-content text-black dark:text-white rounded-box w-fit bg-white dark:bg-themeColor3">
+                                    <li><a>{user?.displayName}</a></li>
+                                    <li><a>{user?.email}</a></li>
+                                    <li><a onClick={() => logout()} className='text-pmColor'>Logout</a></li>
+                                </ul>
                             </div> : <Link onClick={() => setIsOpen(false)} to='/login' className="group relative inline-flex w-fit text-center mx-auto text-sm text-nowrap py-2 items-center justify-center overflow-hidden rounded-md bg-pmColor px-5 font-medium text-neutral-200">
                                 <span>Sign In</span>
                                 <div className="w-0 translate-x-[100%] pl-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-0 group-hover:pl-1 group-hover:opacity-100">
@@ -91,7 +118,11 @@ const Navigation = () => {
                     {/* Mobile Menu open: "block", Menu closed: "hidden" */}
                     <div className='lg:flex lg:justify-center lg:items-center lg:gap-5'>
                         <div className={`absolute inset-x-0 z-10 w-full px-6 py-4 transition-all duration-300 ease-in-out lg:bg-transparent bg-white lg:dark:bg-transparent dark:bg-themeColor3 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center ${isOpen ? 'translate-x-0 opacity-100' : 'opacity-0 -translate-x-full'}`}>
-                            <div className="container flex items-center justify-center px-6 pt-6 sm:p-6 pb-2 mx-auto text-gray-600 capitalize dark:text-gray-300">
+                            <div className="container flex items-center justify-center px-6 pt-6 sm:gap-0 gap-5 xs:gap-0 sm:p-6 pb-2 mx-auto text-gray-600 capitalize dark:text-gray-300">
+                                <div onClick={() => setOpen(!open)}>
+                                    <IoSearch className='text-xl text-pmColor mr-3 hover:cursor-pointer' />
+
+                                </div>
                                 <NavLink onClick={() => setIsOpen(false)} to="/" className={({ isActive, isPending }) =>
                                     isActive
                                         ? "border-b-2 hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 border-pmColor mx-1.5 sm:mx-6"
@@ -124,13 +155,13 @@ const Navigation = () => {
                                 {user ? <div className="dropdown dropdown-end lg:block hidden z-50">
                                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                                         <div className="w-10 rounded-full">
-                                            <img src={user?.photoURL || "https://i.ibb.co/m9jpXGZ/profile-user.png"}  alt="User" />
+                                            <img src={user?.photoURL || "https://i.ibb.co/m9jpXGZ/profile-user.png"} alt="User" />
                                         </div>
                                     </div>
                                     <ul tabIndex={0} className="mt-3 z-40 p-2 shadow menu menu-sm dropdown-content text-black dark:text-white rounded-box w-fit bg-white dark:bg-themeColor3">
                                         <li><a>{user?.displayName}</a></li>
                                         <li><a>{user?.email}</a></li>
-                                        <li><a onClick={()=>logout()} className='text-pmColor'>Logout</a></li>
+                                        <li><a onClick={() => logout()} className='text-pmColor'>Logout</a></li>
                                     </ul>
                                 </div> : <Link onClick={() => setIsOpen(false)} to='/login' className="group relative inline-flex w-fit text-center mx-auto text-sm text-nowrap py-2 items-center justify-center overflow-hidden rounded-md bg-pmColor px-5 font-medium text-neutral-200">
                                     <span>Sign In</span>

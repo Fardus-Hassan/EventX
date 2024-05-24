@@ -27,3 +27,7 @@
     object-fit: cover;
   }
   
+.active{
+  background: #00a8ff;
+  color: #ffff !important;
+}

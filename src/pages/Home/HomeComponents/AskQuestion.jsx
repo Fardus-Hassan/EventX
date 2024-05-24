@@ -13,7 +13,7 @@ import React from 'react';
 
 const AskQuestion = () => {
     return (
-        <div className='pb-10 sm:pb-[100px] w-[98%] mx-auto max-w-[1440px]'>
+        <div className='pb-10 sm:pb-[100px] w-[95%] mx-auto max-w-[1440px]'>
             <div className="sm:text-left text-center">
                 <h1 className="text-pmColor text-3xl sm:text-5xl font-bold font-poppins">Frequently Ask Question</h1>
                 <p className="text-black dark:text-white mt-6 mb-10 max-w-[700px] font-medium sm:text-lg font-montserrat">Explore our comprehensive guide to frequently asked questions, covering to ensure your celebration exceeds expectations.</p>

@@ -3,7 +3,7 @@ import React from 'react';
 const OurAchievement = () => {
     return (
         <div className='pb-10 sm:pb-[100px]'>
-            <div className="sm:text-left text-center w-[98%] mx-auto max-w-[1440px]">
+            <div className="sm:text-left text-center w-[95%] mx-auto max-w-[1440px]">
                 <h1 className="text-pmColor text-3xl sm:text-5xl font-bold font-poppins">Our Achievement</h1>
                 <p className="text-black dark:text-white mt-6 mb-10 max-w-[700px] font-medium sm:text-lg font-montserrat">Embark on our journey of success, marked by milestones, accolades, and delighted clients, shaping memorable experiences along the way.</p>
             </div>

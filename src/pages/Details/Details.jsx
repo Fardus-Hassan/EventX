@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-import { FaHandPointDown  } from "react-icons/fa";
+import { FaAngleDoubleDown } from "react-icons/fa";
 import WithLoading from "../../components/WithLoading";
 
 const Details = () => {
@@ -12,7 +12,7 @@ const Details = () => {
         setIsOpen(true);
         setTimeout(() => {
             setIsVisible(true);
-        }, 10); // small delay to trigger the transition
+        }, 500); // small delay to trigger the transition
     };
 
     const handleClose = () => {
@@ -64,8 +64,8 @@ const Details = () => {
                 <div className="">
                     
                     {/* Use scroll-arrow class and key prop for animation */}
-                    <FaHandPointDown  className="sm:text-5xl text-3xl text-white mx-auto mr-5 inline-block scroll-arrow" key="arrow1" />
-                    <FaHandPointDown  className="sm:text-5xl text-3xl text-white mx-auto ml-5 inline-block scroll-arrow" key="arrow2" />
+                    <FaAngleDoubleDown  className="sm:text-5xl text-3xl text-white mx-auto mr-5 inline-block scroll-arrow" key="arrow1" />
+                    <FaAngleDoubleDown  className="sm:text-5xl text-3xl text-white mx-auto ml-5 inline-block scroll-arrow" key="arrow2" />
                 </div>
             </div>
             <div className="w-full h-full bg-opacity-50 bg-black absolute top-0 z-10"></div>
@@ -113,7 +113,7 @@ const Details = () => {
                                             <IoIosCloseCircleOutline className="text-3xl text-black dark:text-white" />
                                         </div>
                                         <div className="relative overflow-hidden rounded-xl h-[400px] mb-3">
-                                            <img className='object-cover w-full h-[400px] rounded-xl ransition-transform duration-500 transform hover:scale-110' src="https://images.pexels.com/photos/50675/banquet-wedding-society-deco-50675.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                                            <img className='object-cover w-full h-[400px] rounded-xl transition-transform duration-500 transform hover:scale-110' src="https://images.pexels.com/photos/50675/banquet-wedding-society-deco-50675.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                                         </div>
                                         <h3 className="text-lg text-center font-medium leading-6 text-gray-800 capitalize dark:text-white" id="modal-title">
                                             Service Name
@@ -125,17 +125,17 @@ const Details = () => {
                                             <div className="flex sm:flex-row flex-col gap-4 sm:mb-5 mb-3 w-full justify-center">
                                                 <div className="w-full">
                                                     <label
-                                                        htmlFor="email1"
+                                                        htmlFor="ServiceId"
                                                         className="text-sm text-gray-700 dark:text-gray-200"
                                                     >
-                                                        Email address
+                                                        ServiceId
                                                     </label>
 
                                                     <div className="block mt-3">
                                                         <input
-                                                            type="email"
-                                                            name="email"
-                                                            id="email1"
+                                                            type="text"
+                                                            name="ServiceId"
+                                                            id="ServiceId"
                                                             placeholder="user@email.xyz"
                                                             defaultValue="devdhaif@gmail.com"
                                                             className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
@@ -145,58 +145,17 @@ const Details = () => {
 
                                                 <div className="w-full">
                                                     <label
-                                                        htmlFor="email2"
+                                                        htmlFor="Service-Name"
                                                         className="text-sm text-gray-700 dark:text-gray-200"
                                                     >
-                                                        Email address
+                                                        Service Name
                                                     </label>
 
                                                     <div className="block mt-3">
                                                         <input
-                                                            type="email"
-                                                            name="email"
-                                                            id="email2"
-                                                            placeholder="user@email.xyz"
-                                                            defaultValue="devdhaif@gmail.com"
-                                                            className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="flex sm:flex-row flex-col gap-4 sm:mb-5 mb-3 w-full justify-center">
-                                                <div className="w-full">
-                                                    <label
-                                                        htmlFor="email1"
-                                                        className="text-sm text-gray-700 dark:text-gray-200"
-                                                    >
-                                                        Email address
-                                                    </label>
-
-                                                    <div className="block mt-3">
-                                                        <input
-                                                            type="email"
-                                                            name="email"
-                                                            id="email1"
-                                                            placeholder="user@email.xyz"
-                                                            defaultValue="devdhaif@gmail.com"
-                                                            className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                <div className="w-full">
-                                                    <label
-                                                        htmlFor="email2"
-                                                        className="text-sm text-gray-700 dark:text-gray-200"
-                                                    >
-                                                        Email address
-                                                    </label>
-
-                                                    <div className="block mt-3">
-                                                        <input
-                                                            type="email"
-                                                            name="email"
-                                                            id="email2"
+                                                            type="text"
+                                                            name="Service-Name"
+                                                            id="Service-Name"
                                                             placeholder="user@email.xyz"
                                                             defaultValue="devdhaif@gmail.com"
                                                             className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
@@ -207,17 +166,17 @@ const Details = () => {
                                             <div className="flex sm:flex-row flex-col gap-4 sm:mb-5 mb-3 w-full justify-center">
                                                 <div className="w-full">
                                                     <label
-                                                        htmlFor="email1"
+                                                        htmlFor="Service-Image"
                                                         className="text-sm text-gray-700 dark:text-gray-200"
                                                     >
-                                                        Email address
+                                                        Service Image
                                                     </label>
 
                                                     <div className="block mt-3">
                                                         <input
-                                                            type="email"
-                                                            name="email"
-                                                            id="email1"
+                                                            type="text"
+                                                            name="Service-Image"
+                                                            id="Service-Image"
                                                             placeholder="user@email.xyz"
                                                             defaultValue="devdhaif@gmail.com"
                                                             className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
@@ -227,58 +186,17 @@ const Details = () => {
 
                                                 <div className="w-full">
                                                     <label
-                                                        htmlFor="email2"
+                                                        htmlFor="Provider-email"
                                                         className="text-sm text-gray-700 dark:text-gray-200"
                                                     >
-                                                        Email address
+                                                        Provider email
                                                     </label>
 
                                                     <div className="block mt-3">
                                                         <input
                                                             type="email"
-                                                            name="email"
-                                                            id="email2"
-                                                            placeholder="user@email.xyz"
-                                                            defaultValue="devdhaif@gmail.com"
-                                                            className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="flex sm:flex-row flex-col gap-4 sm:mb-5 mb-3 w-full justify-center">
-                                                <div className="w-full">
-                                                    <label
-                                                        htmlFor="email1"
-                                                        className="text-sm text-gray-700 dark:text-gray-200"
-                                                    >
-                                                        Email address
-                                                    </label>
-
-                                                    <div className="block mt-3">
-                                                        <input
-                                                            type="email"
-                                                            name="email"
-                                                            id="email1"
-                                                            placeholder="user@email.xyz"
-                                                            defaultValue="devdhaif@gmail.com"
-                                                            className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                <div className="w-full">
-                                                    <label
-                                                        htmlFor="email2"
-                                                        className="text-sm text-gray-700 dark:text-gray-200"
-                                                    >
-                                                        Email address
-                                                    </label>
-
-                                                    <div className="block mt-3">
-                                                        <input
-                                                            type="email"
-                                                            name="email"
-                                                            id="email2"
+                                                            name="Provider-email"
+                                                            id="Provider-email"
                                                             placeholder="user@email.xyz"
                                                             defaultValue="devdhaif@gmail.com"
                                                             className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
@@ -289,17 +207,17 @@ const Details = () => {
                                             <div className="flex sm:flex-row flex-col gap-4 sm:mb-5 mb-3 w-full justify-center">
                                                 <div className="w-full">
                                                     <label
-                                                        htmlFor="email1"
+                                                        htmlFor="Provider-Name"
                                                         className="text-sm text-gray-700 dark:text-gray-200"
                                                     >
-                                                        Email address
+                                                        Provider Name
                                                     </label>
 
                                                     <div className="block mt-3">
                                                         <input
-                                                            type="email"
-                                                            name="email"
-                                                            id="email1"
+                                                            type="text"
+                                                            name="Provider-Name"
+                                                            id="Provider-Name"
                                                             placeholder="user@email.xyz"
                                                             defaultValue="devdhaif@gmail.com"
                                                             className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
@@ -309,17 +227,99 @@ const Details = () => {
 
                                                 <div className="w-full">
                                                     <label
-                                                        htmlFor="email2"
+                                                        htmlFor="Your-Name"
                                                         className="text-sm text-gray-700 dark:text-gray-200"
                                                     >
-                                                        Email address
+                                                        Your Name
                                                     </label>
 
                                                     <div className="block mt-3">
                                                         <input
-                                                            type="email"
-                                                            name="email"
-                                                            id="email2"
+                                                            type="text"
+                                                            name="Your-Name"
+                                                            id="Your-Name"
+                                                            placeholder="user@email.xyz"
+                                                            defaultValue="devdhaif@gmail.com"
+                                                            className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="flex sm:flex-row flex-col gap-4 sm:mb-5 mb-3 w-full justify-center">
+                                                <div className="w-full">
+                                                    <label
+                                                        htmlFor="Your-Name"
+                                                        className="text-sm text-gray-700 dark:text-gray-200"
+                                                    >
+                                                        Your Name
+                                                    </label>
+
+                                                    <div className="block mt-3">
+                                                        <input
+                                                            type="text"
+                                                            name="Your-Name"
+                                                            id="Your-Name"
+                                                            placeholder="user@email.xyz"
+                                                            defaultValue="devdhaif@gmail.com"
+                                                            className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div className="w-full">
+                                                    <label
+                                                        htmlFor="Service-Taking-Date"
+                                                        className="text-sm text-gray-700 dark:text-gray-200"
+                                                    >
+                                                        Service Taking Date
+                                                    </label>
+
+                                                    <div className="block mt-3">
+                                                        <input
+                                                            type="date"
+                                                            name="Service-Taking-Date"
+                                                            id="Service-Taking-Date"
+                                                            placeholder="user@email.xyz"
+                                                            defaultValue="devdhaif@gmail.com"
+                                                            className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="flex sm:flex-row flex-col gap-4 sm:mb-5 mb-3 w-full justify-center">
+                                                <div className="w-full">
+                                                    <label
+                                                        htmlFor="Special-instruction"
+                                                        className="text-sm text-gray-700 dark:text-gray-200"
+                                                    >
+                                                        Special Instruction
+                                                    </label>
+
+                                                    <div className="block mt-3">
+                                                        <input
+                                                            type="text"
+                                                            name="Special instruction"
+                                                            id="Special instruction"
+                                                            placeholder="user@email.xyz"
+                                                            defaultValue="devdhaif@gmail.com"
+                                                            className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div className="w-full">
+                                                    <label
+                                                        htmlFor="Price"
+                                                        className="text-sm text-gray-700 dark:text-gray-200"
+                                                    >
+                                                        Price
+                                                    </label>
+
+                                                    <div className="block mt-3">
+                                                        <input
+                                                            type="text"
+                                                            name="Price"
+                                                            id="Price"
                                                             placeholder="user@email.xyz"
                                                             defaultValue="devdhaif@gmail.com"
                                                             className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
@@ -353,10 +353,10 @@ const Details = () => {
                         )}
                     </div>
 
-                    <form className='border lg:w-[400px] sm:p-6 p-3 rounded-2xl -translate-y-5'>
+                    <form className='border border-gray-400 dark:border-gray-500 lg:w-[400px] sm:p-6 p-3 rounded-2xl -translate-y-5'>
                         <h2 className='font-poppins font-semibold text-xl mb-3 text-black dark:text-white'>Comment</h2>
                         <input
-                            type="text" name="comment" placeholder="Type Your Comment" className="block w-full px-4 py-2 mt-2 text-gray-700 h-[60px] placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-pmColor focus:ring-pmColor focus:outline-none focus:ring focus:ring-opacity-40" />
+                            type="text" name="comment" placeholder="Type Your Comment" className="block w-full px-4 py-2 mt-2 text-gray-700 h-[60px] placeholder-gray-400 bg-white border border-gray-400 rounded-lg dark:placeholder-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:border-gray-500 focus:border-blue-400 dark:focus:border-pmColor focus:ring-pmColor focus:outline-none focus:ring focus:ring-opacity-40" />
                         <button className='px-5 py-2 bg-pmColor rounded-xl block mt-3 text-white'>Sent</button>
                     </form>
                 </div>
