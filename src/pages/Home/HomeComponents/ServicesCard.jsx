@@ -5,7 +5,7 @@ import { RiGitRepositoryPrivateLine } from "react-icons/ri";
 
 
 
-const ServicesCard = () => {
+const ServicesCard = ({item}) => {
 
     const { user } = useContext(GlobalStateContext)
     const [isOpen, setIsOpen] = useState(false);
@@ -14,23 +14,23 @@ const ServicesCard = () => {
         <div>
             <div className="w-full overflow-hidden rounded-2xl bg-gray-200 dark:bg-themeColor3 mx-auto">
                 <div className="overflow-hidden rounded-t-2xl">
-                    <img className="w-full mx-auto object-cover object-top h-[300px] transform transition-transform duration-500 hover:scale-110" src="https://html.rrdevs.net/printfix/assets/imgs/blog/letest-blog/blog-card2.jpg" alt="" />
+                    <img className="w-full mx-auto object-cover object-top h-[300px] transform transition-transform duration-500 hover:scale-110" src={item.image} alt="" />
                 </div>
 
 
 
                 <div className="p-6">
                     <div>
-                        <span className="text-xl font-medium text-pmColor"><strong>Price : </strong>220$</span>
-                        <a href="#" className="block mt-4 text-xl font-semibold text-gray-800 transition-colors duration-300 transform dark:text-white hover:text-gray-600 hover:underline" role="link">I Built A Successful Blog In One Year</a>
-                        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Molestie parturient et sem ipsum volutpat vel. Natoque sem et aliquam mauris egestas quam volutpat viverra. In pretium nec senectus erat. Et malesuada lobortis.</p>
+                        <span className="text-xl font-medium text-pmColor"><strong>Price : </strong>{item.price}</span>
+                        <a href="#" className="block mt-4 text-xl font-semibold text-gray-800 transition-colors duration-300 transform dark:text-white hover:text-gray-600 hover:underline" role="link">{item.name}</a>
+                        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">{item.Description}</p>
                     </div>
 
                     <div className="mt-6">
                         <div className="flex flex-col-reverse items-start gap-5">
                             <div className="flex items-center">
-                                <img className="object-cover h-10 rounded-full" src="https://images.unsplash.com/photo-1586287011575-a23134f797f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=48&q=60" alt="Avatar" />
-                                <a href="#" className="mx-2 font-semibold text-gray-700 dark:text-gray-200" role="link">Jone Doe</a>
+                                <img className="object-cover h-10 rounded-full" src={item?.photoURL} alt="Avatar" />
+                                <p className="mx-2 font-semibold text-gray-700 dark:text-gray-200" role="link">{item?.userName}</p>
                             </div>
                             {/* <span className="mx-1 text-sm text-gray-600 dark:text-gray-300"><strong>Area : Joydebpur, Gazipur, Bangladesh</strong></span> */}
                         </div>
@@ -39,7 +39,7 @@ const ServicesCard = () => {
                 <div className="mx-auto w-full text-center">
 
                     {
-                        user ? <Link to={`/details`}>
+                        user ? <Link to={`/details/${item._id}`}>
                             <button className="group mb-4 relative inline-flex w-fit text-center mx-auto h-12 items-center justify-center overflow-hidden rounded-md bg-pmColor px-6 font-medium text-neutral-200">
                                 <span>View Detail</span>
                                 <div className="w-0 translate-x-[100%] pl-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-0 group-hover:pl-1 group-hover:opacity-100">
@@ -55,7 +55,7 @@ const ServicesCard = () => {
                     }
                     {isOpen && (
                         <div
-                            className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-50"
+                            className={`fixed inset-0 z-10 overflow-y-auto duration-300 bg-black bg-opacity-50`}
                             aria-labelledby="modal-title"
                             role="dialog"
                             aria-modal="true"
@@ -95,7 +95,7 @@ const ServicesCard = () => {
                                                 Cancel
                                             </button>
 
-                                            <Link to={`/details`}>
+                                            <Link  to={`/details/${item._id}`}>
                                                 <button onClick={() => setIsOpen(true)} className="group relative inline-flex w-fit text-center mx-auto h-9 items-center justify-center overflow-hidden rounded-md bg-pmColor px-3 font-medium text-neutral-200">
                                                     <span className="text-sm">Sign In</span>
                                                     <div className="w-0 translate-x-[100%] pl-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-0 group-hover:pl-1 group-hover:opacity-100">

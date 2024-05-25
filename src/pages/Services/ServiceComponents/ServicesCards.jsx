@@ -37,7 +37,7 @@ const Services = ({ item }) => {
                 </div>
                 <div className="mx-auto w-full text-center">
                     {
-                        user ? <Link to={`/details`}>
+                        user ? <Link to={`/details/${item._id}`}>
                             <button className="group mb-4 relative inline-flex w-fit text-center mx-auto h-12 items-center justify-center overflow-hidden rounded-md bg-pmColor px-6 font-medium text-neutral-200">
                                 <span>View Detail</span>
                                 <div className="w-0 translate-x-[100%] pl-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-0 group-hover:pl-1 group-hover:opacity-100">
@@ -93,7 +93,7 @@ const Services = ({ item }) => {
                                                 Cancel
                                             </button>
 
-                                            <Link to={`/details`}>
+                                            <Link to={`/details/${item._id}`}>
                                                 <button onClick={() => setIsOpen(true)} className="group relative inline-flex w-fit text-center mx-auto h-9 items-center justify-center overflow-hidden rounded-md bg-pmColor px-3 font-medium text-neutral-200">
                                                     <span className="text-sm">Sign In</span>
                                                     <div className="w-0 translate-x-[100%] pl-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-0 group-hover:pl-1 group-hover:opacity-100">

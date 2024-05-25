@@ -1,18 +1,81 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { FaAngleDoubleDown } from "react-icons/fa";
 import WithLoading from "../../components/WithLoading";
+import { Navigate, useParams } from "react-router-dom";
+import Spinner from "../../components/Spinner";
+import axios from "axios";
+import { useForm } from "react-hook-form";
+import { GlobalStateContext } from "../../Global/GlobalContext";
+import toast from "react-hot-toast";
 
 const Details = () => {
 
+    const { id } = useParams()
+    const { user } = useContext(GlobalStateContext)
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm()
+
+
+
+
+    const [loading, setLoading] = useState(true)
+
+    const [datas, setDatas] = useState([])
+
     const [isOpen, setIsOpen] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
+
+    const onSubmit = async (data) => {
+
+        const SpecialInstruction = data.SpecialInstruction;
+        const ServiceTakingDate = data.ServiceTakingDate;
+
+        const currentUserName = user?.displayName
+        const currentUserEmail = user?.email
+
+        const { area, price, name, image, Description, email, userName, photoURL } = datas;
+
+
+        const eventInfo = { area, price, name, image, Description, email, userName, SpecialInstruction, ServiceTakingDate, currentUserName, currentUserEmail, id, photoURL };
+
+        console.log(eventInfo);
+
+        const { data: check } = await axios.get(`${import.meta.env.VITE_SERVER}/bookedEvents/byId/${id}`)
+
+        const filter = check.find(item=>item.currentUserEmail == currentUserEmail)
+
+
+        if (filter) {
+            toast.error('Already Booked')
+            handleClose()
+            return
+        }
+
+        const { data: info } = await axios.post(`${import.meta.env.VITE_SERVER}/bookedEvents`, eventInfo)
+
+
+        if (info.acknowledged) {
+            toast.success('Booked Successfully');
+            handleClose()
+            reset()
+        }
+
+        // <Navigate to="/dashboard/booked-service" />
+
+
+    }
+
 
     const handleOpen = () => {
         setIsOpen(true);
         setTimeout(() => {
             setIsVisible(true);
-        }, 500); // small delay to trigger the transition
+        }, 0); // small delay to trigger the transition
     };
 
     const handleClose = () => {
@@ -24,66 +87,79 @@ const Details = () => {
 
 
     useEffect(() => {
-        // Function to trigger the animation on component mount
-        const triggerAnimation = () => {
-            const arrows = document.querySelectorAll('.scroll-arrow');
-            arrows.forEach((arrow, index) => {
-                setTimeout(() => {
-                    arrow.classList.add('animate-bounce');
-                }, index * 0); // Adjust the delay as needed
-            });
-        };
-    
-        // Delay before triggering animation
-        const delay = 1010; // 1.5 seconds in milliseconds
-    
-        const timeoutId = setTimeout(() => {
-            triggerAnimation();
-        }, delay);
-    
-        // Cleanup function
-        return () => {
-            // Clear timeout if component unmounts before animation starts
-            clearTimeout(timeoutId);
-    
-            // Remove animation classes when component unmounts
-            const arrows = document.querySelectorAll('.scroll-arrow');
-            arrows.forEach(arrow => {
-                arrow.classList.remove('animate-bounce');
-            });
-        };
-    }, []);
-    
+
+        setLoading(true)
+        const getData = async () => {
+            const { data } = await axios.get(`${import.meta.env.VITE_SERVER}/events/${id}`)
+            setDatas(data)
+            setLoading(false)
+            // Function to trigger the animation on component mount
+            const triggerAnimation = () => {
+                const arrows = document.querySelectorAll('.scroll-arrow');
+                arrows.forEach((arrow, index) => {
+                    setTimeout(() => {
+                        arrow.classList.add('animate-bounce');
+                    }, index * 0); // Adjust the delay as needed
+                });
+            };
+
+            // Delay before triggering animation
+            const delay = 1010; // 1.5 seconds in milliseconds
+
+            const timeoutId = setTimeout(() => {
+                triggerAnimation();
+            }, delay);
+
+            // Cleanup function
+            return () => {
+                // Clear timeout if component unmounts before animation starts
+                clearTimeout(timeoutId);
+
+                // Remove animation classes when component unmounts
+                const arrows = document.querySelectorAll('.scroll-arrow');
+                arrows.forEach(arrow => {
+                    arrow.classList.remove('animate-bounce');
+                });
+            };
+        }
+        getData()
+
+    }, [id]);
+
+    if (loading) {
+        return <Spinner></Spinner>
+    }
+
 
     return (
         <WithLoading>
-            <div className="mb-10 sm:mb-[100px]  relative h-[60vh] overflow-y-auto bg-cover bg-center bg-no-repeat bg-fixed" style={{ backgroundImage: "url('https://images.pexels.com/photos/3756623/pexels-photo-3756623.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }}>
-            <div className='flex flex-col absolute top-[50%] translate-y-[-50%] text-center z-30 left-[50%] translate-x-[-50%] w-[90%]'>
-                <h1 className='max-w-[900px] mx-auto text-white lg:text-[56px] text-[35px] font-black font-poppins'>Service <span className='text-pmColor'>Details</span></h1>
-                <p className='max-w-[800px] mx-auto text-white lg:text-[20px] text-[16px] mt-4 mb-8 font-montserrat'> The service you want to see is below</p>
-                <div className="">
-                    
-                    {/* Use scroll-arrow class and key prop for animation */}
-                    <FaAngleDoubleDown  className="sm:text-5xl text-3xl text-white mx-auto mr-5 inline-block scroll-arrow" key="arrow1" />
-                    <FaAngleDoubleDown  className="sm:text-5xl text-3xl text-white mx-auto ml-5 inline-block scroll-arrow" key="arrow2" />
+            <div className="mb-10 sm:mb-[100px]  relative h-[60vh] overflow-y-auto bg-cover bg-center bg-no-repeat bg-fixed" style={{ backgroundImage: "url('https://images.inc.com/uploaded_files/image/1920x1080/getty_504013680_135336.jpg')" }}>
+                <div className='flex flex-col absolute top-[50%] translate-y-[-50%] text-center z-30 left-[50%] translate-x-[-50%] w-[90%]'>
+                    <h1 className='max-w-[900px] mx-auto text-white lg:text-[56px] text-[35px] font-black font-poppins'>Service <span className='text-pmColor'>Details</span></h1>
+                    <p className='max-w-[800px] mx-auto text-white lg:text-[20px] text-[16px] mt-4 mb-8 font-montserrat'> The service you want to see is below</p>
+                    <div className="">
+
+                        {/* Use scroll-arrow class and key prop for animation */}
+                        <FaAngleDoubleDown className="sm:text-5xl text-4xl text-white mx-auto mr-5 inline-block scroll-arrow" key="arrow1" />
+                        <FaAngleDoubleDown className="sm:text-5xl text-4xl text-white mx-auto ml-5 inline-block scroll-arrow" key="arrow2" />
+                    </div>
                 </div>
+                <div className="w-full h-full bg-opacity-50 bg-black absolute top-0 z-10"></div>
             </div>
-            <div className="w-full h-full bg-opacity-50 bg-black absolute top-0 z-10"></div>
-        </div>
-            <div className='max-w-[1440px] mx-auto w-[98%] flex lg:flex-row flex-col gap-10 justify-between lg:items-center py-10 sm:pb-[100px]'>
+            <div className='max-w-[1440px] mx-auto w-[95%] flex lg:flex-row flex-col gap-10 justify-between lg:items-center py-10 sm:pb-[100px]'>
                 <div className='lg:w-[50%] sm:h-[600px] h-[400px] rounded-xl relative overflow-hidden'>
-                    <img className='object-cover h-full w-full rounded-xl transition-transform duration-500 transform hover:scale-110' src="https://images.pexels.com/photos/50675/banquet-wedding-society-deco-50675.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                    <img className='object-cover h-full w-full rounded-xl transition-transform duration-500 transform hover:scale-110' src={datas.image} alt="" />
                 </div>
                 <div className='lg:w-[50%] space-y-6 lg:px-0 sm:px-5 px-2'>
-                    <h1 className='sm:text-5xl text-4xl font-poppins font-semibold text-black dark:text-white'>Service Name</h1>
-                    <p className='text-lg font-montserrat font-semibold text-black dark:text-white'>Price : $230.50</p>
-                    <p className='font-montserrat sm:text-base text-sm text-black dark:text-white'><strong>Description :</strong> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, labore. Accusamus architecto esse necessitatibus cum tempore, quia culpa illo, possimus voluptates cumque maiores molestias laborum vitae in laboriosam eos illum iusto et, aspernatur deleniti provident tenetur. Illo voluptas eum, aut quo asperiores exercitationem distinctio animi possimus maxime at, cupiditate commodi architecto magnam deleniti nihil dignissimos aliquid omnis expedita ab aliquam.</p>
+                    <h1 className='sm:text-4xl text-3xl font-poppins font-semibold text-black dark:text-white'>{datas.name}</h1>
+                    <p className='text-lg font-montserrat font-semibold text-black dark:text-white'>Price : {datas.price}</p>
+                    <p className='font-montserrat sm:text-base text-sm text-black dark:text-white'><strong>Description :</strong> {datas.Description}</p>
 
-                    <p className='font-montserrat sm:text-base text-sm text-black dark:text-white'>Joydebpur, Dhaka, Bangladesh</p>
+                    <p className='font-montserrat sm:text-base text-sm text-black dark:text-white'>{datas.area}</p>
                     <div className="flex items-center">
                         <div className="flex items-center gap-2">
-                            <img className="object-cover h-10 rounded-full" src="https://images.unsplash.com/photo-1586287011575-a23134f797f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=48&q=60" alt="Avatar" />
-                            <a href="#" className="mx-2 font-semibold font-montserrat text-gray-700 dark:text-gray-200" role="link">Fardus Hassan</a>
+                            <img className="object-cover h-10 rounded-full" src={datas?.photoURL} alt="Avatar" />
+                            <a href="#" className="mx-2 font-semibold font-montserrat text-gray-700 dark:text-gray-200" role="link">{datas.userName}</a>
                         </div>
                     </div>
 
@@ -113,15 +189,9 @@ const Details = () => {
                                             <IoIosCloseCircleOutline className="text-3xl text-black dark:text-white" />
                                         </div>
                                         <div className="relative overflow-hidden rounded-xl h-[400px] mb-3">
-                                            <img className='object-cover w-full h-[400px] rounded-xl transition-transform duration-500 transform hover:scale-110' src="https://images.pexels.com/photos/50675/banquet-wedding-society-deco-50675.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                                            <img className='object-cover w-full h-[400px] rounded-xl transition-transform duration-500 transform hover:scale-110' src={datas.image} alt="" />
                                         </div>
-                                        <h3 className="text-lg text-center font-medium leading-6 text-gray-800 capitalize dark:text-white" id="modal-title">
-                                            Service Name
-                                        </h3>
-                                        <p className="mt-2 text-center text-sm text-gray-500 dark:text-gray-400">
-                                            Your new project has been created. Invite your team to collaborate on this project.
-                                        </p>
-                                        <form className="mt-4" action="#">
+                                        <form className="mt-7" onSubmit={handleSubmit(onSubmit)}>
                                             <div className="flex sm:flex-row flex-col gap-4 sm:mb-5 mb-3 w-full justify-center">
                                                 <div className="w-full">
                                                     <label
@@ -133,6 +203,7 @@ const Details = () => {
 
                                                     <div className="block mt-3">
                                                         <input
+                                                            value={datas._id}
                                                             type="text"
                                                             name="ServiceId"
                                                             id="ServiceId"
@@ -153,6 +224,7 @@ const Details = () => {
 
                                                     <div className="block mt-3">
                                                         <input
+                                                            value={datas.name}
                                                             type="text"
                                                             name="Service-Name"
                                                             id="Service-Name"
@@ -174,6 +246,7 @@ const Details = () => {
 
                                                     <div className="block mt-3">
                                                         <input
+                                                            value={datas.image}
                                                             type="text"
                                                             name="Service-Image"
                                                             id="Service-Image"
@@ -184,19 +257,21 @@ const Details = () => {
                                                     </div>
                                                 </div>
 
+
                                                 <div className="w-full">
                                                     <label
-                                                        htmlFor="Provider-email"
+                                                        htmlFor="Price"
                                                         className="text-sm text-gray-700 dark:text-gray-200"
                                                     >
-                                                        Provider email
+                                                        Price
                                                     </label>
 
                                                     <div className="block mt-3">
                                                         <input
-                                                            type="email"
-                                                            name="Provider-email"
-                                                            id="Provider-email"
+                                                            value={datas.price}
+                                                            type="text"
+                                                            name="Price"
+                                                            id="Price"
                                                             placeholder="user@email.xyz"
                                                             defaultValue="devdhaif@gmail.com"
                                                             className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
@@ -215,6 +290,7 @@ const Details = () => {
 
                                                     <div className="block mt-3">
                                                         <input
+                                                            value={datas.userName}
                                                             type="text"
                                                             name="Provider-Name"
                                                             id="Provider-Name"
@@ -224,7 +300,30 @@ const Details = () => {
                                                         />
                                                     </div>
                                                 </div>
+                                                <div className="w-full">
+                                                    <label
+                                                        htmlFor="Provider-email"
+                                                        className="text-sm text-gray-700 dark:text-gray-200"
+                                                    >
+                                                        Provider email
+                                                    </label>
 
+                                                    <div className="block mt-3">
+                                                        <input
+                                                            value={datas.email}
+                                                            type="email"
+                                                            name="Provider-email"
+                                                            id="Provider-email"
+                                                            placeholder="user@email.xyz"
+                                                            defaultValue="devdhaif@gmail.com"
+                                                            className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
+                                                        />
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div className="flex sm:flex-row flex-col gap-4 sm:mb-5 mb-3 w-full justify-center">
                                                 <div className="w-full">
                                                     <label
                                                         htmlFor="Your-Name"
@@ -235,6 +334,29 @@ const Details = () => {
 
                                                     <div className="block mt-3">
                                                         <input
+                                                            value={user?.displayName}
+                                                            type="text"
+                                                            name="Your-Name"
+                                                            id="Your-Name"
+                                                            placeholder="user@email.xyz"
+                                                            defaultValue="devdhaif@gmail.com"
+                                                            className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
+                                                        />
+                                                    </div>
+                                                </div>
+
+
+                                                <div className="w-full">
+                                                    <label
+                                                        htmlFor="Your-Name"
+                                                        className="text-sm text-gray-700 dark:text-gray-200"
+                                                    >
+                                                        Your email
+                                                    </label>
+
+                                                    <div className="block mt-3">
+                                                        <input
+                                                            value={user?.email}
                                                             type="text"
                                                             name="Your-Name"
                                                             id="Your-Name"
@@ -248,27 +370,7 @@ const Details = () => {
                                             <div className="flex sm:flex-row flex-col gap-4 sm:mb-5 mb-3 w-full justify-center">
                                                 <div className="w-full">
                                                     <label
-                                                        htmlFor="Your-Name"
-                                                        className="text-sm text-gray-700 dark:text-gray-200"
-                                                    >
-                                                        Your Name
-                                                    </label>
-
-                                                    <div className="block mt-3">
-                                                        <input
-                                                            type="text"
-                                                            name="Your-Name"
-                                                            id="Your-Name"
-                                                            placeholder="user@email.xyz"
-                                                            defaultValue="devdhaif@gmail.com"
-                                                            className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                <div className="w-full">
-                                                    <label
-                                                        htmlFor="Service-Taking-Date"
+                                                        htmlFor="ServiceTakingDate"
                                                         className="text-sm text-gray-700 dark:text-gray-200"
                                                     >
                                                         Service Taking Date
@@ -276,20 +378,18 @@ const Details = () => {
 
                                                     <div className="block mt-3">
                                                         <input
+                                                            {...register("ServiceTakingDate", { required: true })}
                                                             type="date"
-                                                            name="Service-Taking-Date"
-                                                            id="Service-Taking-Date"
-                                                            placeholder="user@email.xyz"
-                                                            defaultValue="devdhaif@gmail.com"
+                                                            name="ServiceTakingDate"
+                                                            id="ServiceTakingDate"
                                                             className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
                                                         />
+                                                        {errors.ServiceTakingDate && <span className="text-xs block text-red-500">This field is required</span>}
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="flex sm:flex-row flex-col gap-4 sm:mb-5 mb-3 w-full justify-center">
                                                 <div className="w-full">
                                                     <label
-                                                        htmlFor="Special-instruction"
+                                                        htmlFor="SpecialInstruction"
                                                         className="text-sm text-gray-700 dark:text-gray-200"
                                                     >
                                                         Special Instruction
@@ -297,35 +397,18 @@ const Details = () => {
 
                                                     <div className="block mt-3">
                                                         <input
+                                                            {...register("SpecialInstruction", { required: true })}
                                                             type="text"
-                                                            name="Special instruction"
-                                                            id="Special instruction"
-                                                            placeholder="user@email.xyz"
-                                                            defaultValue="devdhaif@gmail.com"
+                                                            name="SpecialInstruction"
+                                                            id="SpecialInstruction"
+                                                            placeholder="Special Instruction"
                                                             className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
                                                         />
+                                                        {errors.SpecialInstruction && <span className="text-xs block text-red-500">This field is required</span>}
                                                     </div>
                                                 </div>
 
-                                                <div className="w-full">
-                                                    <label
-                                                        htmlFor="Price"
-                                                        className="text-sm text-gray-700 dark:text-gray-200"
-                                                    >
-                                                        Price
-                                                    </label>
 
-                                                    <div className="block mt-3">
-                                                        <input
-                                                            type="text"
-                                                            name="Price"
-                                                            id="Price"
-                                                            placeholder="user@email.xyz"
-                                                            defaultValue="devdhaif@gmail.com"
-                                                            className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:focus:border-blue-300"
-                                                        />
-                                                    </div>
-                                                </div>
                                             </div>
 
 

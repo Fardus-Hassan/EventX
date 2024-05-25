@@ -4,26 +4,43 @@ import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Spinner from '../Spinner';
 import { GlobalStateContext } from '../../Global/GlobalContext';
-import { BsPen } from 'react-icons/bs';
-import { AiTwotoneDelete } from 'react-icons/ai';
+import { IoWarningOutline } from "react-icons/io5";
 import toast from 'react-hot-toast';
+import { RiGitRepositoryPrivateLine } from 'react-icons/ri';
 
 
 
 const ManageService = () => {
 
     const { user } = useContext(GlobalStateContext)
-    const email = user.email
+    const email = user?.email
+    const [isOpen, setIsOpen] = useState(false);
 
     const [loading, setLoading] = useState(true)
 
     const [datas, setDatas] = useState([])
+    const [isVisible, setIsVisible] = useState(false);
+
+    const handleOpen = () => {
+        setIsOpen(true);
+        setTimeout(() => {
+            setIsVisible(true);
+        }, 0); // small delay to trigger the transition
+    };
+
+    const handleClose = () => {
+        setIsVisible(false);
+        setTimeout(() => {
+            setIsOpen(false);
+        }, 500); // match the duration of your CSS transition
+    };
+
 
 
     useEffect(() => {
         setLoading(true)
         const getData = async () => {
-            const { data } = await axios.get(`${import.meta.env.VITE_SERVER}/events/${email}`)
+            const { data } = await axios.get(`${import.meta.env.VITE_SERVER}/events/byEmail/${email}`)
             setDatas(data)
             setLoading(false)
         }
@@ -103,18 +120,75 @@ const ManageService = () => {
                                             </td>
 
                                             <td>
-                                                <button
-                                                    onClick={() => handleDelete(data?._id)}
+                                                <button onClick={handleOpen}
                                                     className="ml-2"
                                                 >
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                                     </svg>
                                                 </button>
+                                                {isOpen && (
+                                                    <div
+                                                        className={`fixed inset-0 z-10 bg-black bg-opacity-5 overflow-y-auto transition-opacity ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+                                                        aria-labelledby="modal-title"
+                                                        role="dialog"
+                                                        aria-modal="true"
+                                                    >
+                                                        <div className="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                                                            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+                                                                &#8203;
+                                                            </span>
+
+                                                            <div
+                                                                className="relative inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg rtl:text-right dark:bg-themeColor3 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6"
+                                                            >
+                                                                <div>
+                                                                    <div className="flex items-center justify-center">
+                                                                        <IoWarningOutline className="text-2xl" />
+                                                                    </div>
+
+                                                                    <div className="mt-2 text-center">
+                                                                        <h3
+                                                                            className="text-lg font-medium leading-6 text-gray-800 capitalize dark:text-white"
+                                                                            id="modal-title"
+                                                                        >
+                                                                            Warning
+                                                                        </h3>
+                                                                        <p className="mt-2 text-sm w-[80%] mx-auto text-gray-500 dark:text-gray-400">
+                                                                            If you delete it, you can't get it back
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div className="mt-5 sm:flex items-center justify-center">
+                                                                    <div className="sm:flex sm:items-center ">
+                                                                        <button
+                                                                            onClick={handleClose}
+                                                                            className="w-full px-4 py-2 mt-2 text-sm font-medium tracking-wide text-gray-700 capitalize transition-colors duration-300 transform border border-gray-200 rounded-md sm:mt-0 sm:w-auto sm:mx-2 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 hover:bg-gray-100 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-40"
+                                                                        >
+                                                                            Cancel
+                                                                        </button>
+
+                                                                        <button onClick={() => {
+                                                                            handleClose();
+                                                                            handleDelete(data?._id)
+                                                                        }} className="group relative inline-flex w-fit text-center mx-auto h-9 items-center justify-center overflow-hidden rounded-md bg-pmColor px-3 font-medium text-neutral-200">
+                                                                            <span className="text-sm">Delete</span>
+                                                                            <div className="w-0 translate-x-[100%] pl-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-0 group-hover:pl-1 group-hover:opacity-100">
+                                                                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor"></path></svg>
+                                                                            </div>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )}
                                             </td>
                                         </tr>
 
                                     ))}
+
                             </tbody>
                         </table>
                     </div>

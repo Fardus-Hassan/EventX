@@ -70,19 +70,19 @@ const Dashboard = () => {
 
                         <div className="flex flex-col justify-between flex-1 mt-6">
                             <nav className="-mx-3 space-y-3 ">
-                                <Link className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" to="/">
+                                <NavLink className="flex items-center px-3 py-2  sm:mt-10 mt-6 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-pmColor dark:hover:bg-pmColor" to="/">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-5 h-5">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                                     </svg>
 
                                     <span className="mx-2 text-sm font-medium">Home</span>
-                                </Link>
+                                </NavLink>
 
-                                <Link className="flex items-center px-3 py-2 mb-10 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" to="/services">
+                                <NavLink className="flex items-center px-3 py-2  sm:mt-10 mt-6 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-pmColor dark:hover:bg-pmColor" to="/services">
                                     <MdMiscellaneousServices className="text-xl" />
 
                                     <span className="mx-2 text-sm font-medium">Services</span>
-                                </Link>
+                                </NavLink>
 
                                 <NavLink onClick={() => setOpen(false)} className="flex items-center px-3 py-2  sm:mt-10 mt-6 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-pmColor dark:hover:bg-pmColor" to="/dashboard" end>
                                     <TbLayoutDashboardFilled className="text-xl" />
@@ -144,9 +144,9 @@ const Dashboard = () => {
                         <div onClick={() => setOpen(!open)} className={`bg-pmColor absolute z-50 dark:bg-opacity-100 shadow-2xl dark:bg-themeColor3 w-fit sm:p-4 p-3 rounded-xl `}>
                             {
                                 open ?
-                                    <IoMdClose className="sm:text-2xl text-lg" />
+                                    <IoMdClose className="sm:text-2xl text-lg text-white" />
                                     :
-                                    <FaBarsStaggered className="sm:text-2xl text-lg" />
+                                    <FaBarsStaggered className="sm:text-2xl text-lg text-white" />
                             }
                         </div>
                     </div>

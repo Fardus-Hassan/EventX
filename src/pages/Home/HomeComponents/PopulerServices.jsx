@@ -1,10 +1,31 @@
 import { Link } from "react-router-dom";
 import ServicesCard from "./ServicesCard";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Spinner from "../../../components/Spinner";
 
 
 const PopulerServices = () => {
 
-    const card = [1, 2, 3, 4, 5, 6]
+    const [loading, setLoading] = useState(true)
+
+    const [datas, setDatas] = useState([])
+
+    useEffect(() => {
+        setLoading(true)
+        const getData = async() =>{
+            const {data} = await axios.get(`${import.meta.env.VITE_SERVER}/events`)
+            setDatas(data)
+            setLoading(false)
+        }
+        getData()
+    },[])
+
+    console.log(datas);
+
+    if(loading){
+        return <Spinner></Spinner>
+    }
 
     return (
         <div className="pb-10 sm:pb-[100px] w-[95%] mx-auto max-w-[1440px]">
@@ -14,7 +35,7 @@ const PopulerServices = () => {
             </div>
             <div className="grid sm:grid-cols-2 grid-cols-1 gap-6">
                 {
-                    card.slice(0, 4).map((item, i) => (
+                    datas.slice(0, 4).map((item, i) => (
                         <ServicesCard key={i} item={item} />
                     ))
                 }
