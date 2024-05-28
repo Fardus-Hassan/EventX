@@ -55,14 +55,13 @@ const Services = () => {
         return <Spinner></Spinner>
     }
 
-    console.log(filterData);
 
     return (
         <ScrollToTop>
             <SiteTitle title='EventX | Service'></SiteTitle>
             <WithLoading>
                 <div className={`flex justify-center  ${!open ? "hidden" : ""} ${filterData.length === 0 ? "hidden" : ""}`}>
-                    <div className="lg:w-[75%] w-[95%] mx-auto bg-white dark:bg-themeColor3 lg:mt-10 md:mt-32 sm:mt-[136px] mt-[110px] fixed rounded-xl z-10 h-fit max-h-[50vh] overflow-auto">
+                    <div className="lg:w-[75%] w-[95%] border-b-2 border-pmColor mx-auto bg-white dark:bg-themeColor3 lg:mt-10 md:mt-32 sm:mt-[136px] mt-[110px] fixed rounded-xl z-10 h-fit max-h-[50vh] overflow-auto">
                         {
                             filterData.map((item) => (
                                 <Link key={item._id} to={`/details/${item._id}`} onClick={()=>setOpen(!open)}>
