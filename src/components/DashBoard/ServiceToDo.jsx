@@ -4,46 +4,66 @@ import Spinner from '../Spinner';
 import { GlobalStateContext } from '../../Global/GlobalContext';
 import axios from 'axios';
 import SiteTitle from '../sheared/SiteTitle';
-
+import toast from 'react-hot-toast';
 
 const ServiceToDo = () => {
-
-    const { user } = useContext(GlobalStateContext)
-    const email = user?.email
-    const [loading, setLoading] = useState(true)
-    const [datas, setDatas] = useState([])
-    const [isOpen, setIsOpen] = useState(true);
-    const [iconToggled, setIconToggled] = useState(false);
-    console.log(isOpen);
-
+    const { user } = useContext(GlobalStateContext);
+    const email = user?.email;
+    const [loading, setLoading] = useState(true);
+    const [datas, setDatas] = useState([]);
+    const [statuses, setStatuses] = useState({});
 
     useEffect(() => {
-        setLoading(true)
+        setLoading(true);
         const getData = async () => {
-            const { data } = await axios.get(`${import.meta.env.VITE_SERVER}/bookedEvents/ToDo/${email}`)
-            setDatas(data)
-            setLoading(false)
+            const { data } = await axios.get(`${import.meta.env.VITE_SERVER}/bookedEvents/ToDo/${email}`);
+            setDatas(data);
+            const initialStatuses = data.reduce((acc, item) => {
+                acc[item._id] = item.status;
+                return acc;
+            }, {});
+            setStatuses(initialStatuses);
+            setLoading(false);
         }
-        getData()
-    }, [email])
+        getData();
+    }, [email]);
 
+    const handleDropdownToggle = async (e, id) => {
+        const newStatus = e.target.value;
+        try {
+            const response = await axios.patch(`${import.meta.env.VITE_SERVER}/bookedEvents/status/${id}`, { status: newStatus });
 
-    const handleDropdownToggle = (e, id) => {
-        const status = e.target.value
-        console.log(status, id);
-        setIconToggled(!iconToggled);
-        const { data } = axios.patch(`${import.meta.env.VITE_SERVER}/bookedEvents/status/${id}`, { status: status })
-        window.location.reload()
-
+            if (response.data.acknowledged) {
+                toast.success(`Status updated to ${newStatus}`);
+                setStatuses(prevStatuses => ({
+                    ...prevStatuses,
+                    [id]: newStatus
+                }));
+            } else {
+                toast.error('Failed to update status');
+            }
+        } catch (error) {
+            console.error('Error updating status:', error);
+            toast.error('An error occurred while updating the status');
+        }
     };
 
+    const getStatusColor = (status) => {
+        switch (status) {
+            case 'Pending':
+                return 'bg-yellow-500';
+            case 'Working':
+                return 'bg-blue-500';
+            case 'Completed':
+                return 'bg-green-500';
+            default:
+                return 'bg-gray-500';
+        }
+    };
 
     if (loading) {
-        return <Spinner></Spinner>
+        return <Spinner />;
     }
-
-
-
 
     return (
         <section className="bg-white dark:bg-themeColor min-h-screen w-screen lg:w-full lg:py-10 py-16">
@@ -51,8 +71,8 @@ const ServiceToDo = () => {
 
             {
                 datas.length > 0 ?
-                    <div className="w-[95%] mx-auto min-h-screen  overflow-x-auto">
-                        <div className="">
+                    <div className="w-[95%] mx-auto min-h-screen overflow-x-auto">
+                        <div>
                             <table className="table">
                                 <thead>
                                     <tr className='text-black dark:text-white'>
@@ -67,89 +87,69 @@ const ServiceToDo = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {datas &&
-                                        datas.map((data, i) => (
-                                            <tr key={data._id}>
-                                                <th>{i + 1}</th>
-                                                <td>
-                                                    <div className="avatar">
-                                                        <div className="mask rounded-md w-40 h-40">
-                                                            <img src={data.image} alt="Service" />
+                                    {datas.map((data, i) => (
+                                        <tr key={data._id}>
+                                            <th>{i + 1}</th>
+                                            <td>
+                                                <div className="avatar">
+                                                    <div className="mask rounded-md w-40 h-40">
+                                                        <img src={data.image} alt="Service" />
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <div className="font-bold">{data.name}</div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div className='flex items-center gap-5'>
+                                                    <div className='avatar'>
+                                                        <div className="mask rounded-md w-14 h-14">
+                                                            <img className='w-14 h-14 rounded-full' src={data?.currentUserPhoto} alt="" />
                                                         </div>
                                                     </div>
-                                                </td>
-                                                <td>
-
                                                     <div>
-                                                        <div className="font-bold">{data.name}</div>
+                                                        <h1 className='font-montserrat font-bold'>{data.currentUserName}</h1>
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <div className='flex items-center gap-5'>
-                                                        <div className='avatar'>
-                                                            <div className="mask rounded-md w-14 h-14">
-                                                                <img className='w-14 h-14 rounded-full' src={data?.currentUserPhoto} alt="" />
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <h1 className='font-montserrat font-bold'>{data.currentUserName}</h1>
-                                                        </div>
-                                                    </div>
-
-                                                </td>
-                                                <td>
-                                                    <h1 className='font-medium'>{data?.currentUserEmail}</h1>
-                                                </td>
-                                                <td>
-                                                    <h1 className='font-medium'>{data.SpecialInstruction}</h1>
-                                                </td>
-                                                <td>
-                                                    <h1 className='font-medium'>{data.ServiceTakingDate}</h1>
-                                                </td>
-
-                                                <td>
-                                                    <div className="relative inline-block min-w-28 rounded-3xl text-white font-montserrat font-semibold">
-                                                        <div className="relative inline-block w-full">
-                                                            <select
-                                                                onChange={(e) => {
-                                                                    handleDropdownToggle(e, data._id)
-                                                                }}
-                                                                onBlur={() => setIsOpen(false)}
-                                                                className={`block appearance-none ${data?.status == "Pending" && "bg-yellow-500"} ${data?.status == "Working" && "bg-blue-500"} ${data?.status == "Completed" && "bg-green-500"} w-full rounded-3xl px-4 py-3 pr-8 shadow leading-tight focus:outline-none focus:shadow-outline transition-colors duration-300`}
-                                                            >
-                                                                <option
-                                                                    // className={`${data?.status == "pending" && "bg-yellow-500"}`}
-                                                                    selected disabled defaultValue
-                                                                    className='hidden'
-                                                                >{data?.status}
-                                                                </option>
-                                                                <option
-                                                                    // className={`${data?.status == "working" && "bg-blue-500"}`}
-                                                                    className={`text-sm ${data.status == "Working" ? "hidden" : ""}`}
-
-                                                                    value="Working">Working</option>
-                                                                <option
-                                                                    // className={`${data?.status == "Complete" && "bg-green-500"}`}
-                                                                    className={`text-sm ${data.status == "Completed" ? "hidden" : ""}`}
-                                                                    value="Completed">Completed</option>
-                                                            </select>
-                                                            <div className={`pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 transition-transform duration-100 rotate-180`}>
-                                                                <svg className="fill-current h-5 w-5 pt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                                                    <path d="M10 3a1 1 0 00-.71.29l-5 5a1 1 0 101.42 1.42L10 5.41l4.29 4.3a1 1 0 001.42-1.42l-5-5A1 1 0 0010 3z" />
-                                                                </svg>
-
-                                                            </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <h1 className='font-medium'>{data?.currentUserEmail}</h1>
+                                            </td>
+                                            <td>
+                                                <h1 className='font-medium'>{data.SpecialInstruction}</h1>
+                                            </td>
+                                            <td>
+                                                <h1 className='font-medium'>{data.ServiceTakingDate}</h1>
+                                            </td>
+                                            <td>
+                                                <div className="relative inline-block min-w-28 rounded-3xl text-white font-montserrat font-semibold">
+                                                    <div className="relative inline-block w-full">
+                                                        <select
+                                                            onChange={(e) => handleDropdownToggle(e, data._id)}
+                                                            value={statuses[data._id] || data.status}
+                                                            className={`block appearance-none ${getStatusColor(statuses[data._id] || data.status)} w-full rounded-3xl px-4 py-3 pr-8 shadow leading-tight focus:outline-none focus:shadow-outline transition-colors duration-300`}
+                                                        >
+                                                            <option value="Pending">Pending</option>
+                                                            <option value="Working">Working</option>
+                                                            <option value="Completed">Completed</option>
+                                                        </select>
+                                                        <div className={`pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 transition-transform duration-100 rotate-180`}>
+                                                            <svg className="fill-current h-5 w-5 pt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                                <path d="M10 3a1 1 0 00-.71.29l-5 5a1 1 0 101.42 1.42L10 5.41l4.29 4.3a1 1 0 001.42-1.42l-5-5A1 1 0 0010 3z" />
+                                                            </svg>
                                                         </div>
                                                     </div>
-                                                </td>
-                                            </tr>
-
-                                        ))}
-
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
-                    </div> : <div className="flex items-center px-6 mx-auto">
+                    </div> : 
+                    <div className="flex items-center px-6 mx-auto">
                         <div className="flex flex-col items-center justify-center max-w-sm mx-auto text-center lg:h-[calc(100vh-80px)] h-[calc(100vh-128px)]">
                             <p className="p-3 text-sm font-medium text-pmColor rounded-full bg-blue-50 dark:bg-gray-800">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="w-6 h-6">

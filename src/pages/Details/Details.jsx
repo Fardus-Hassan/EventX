@@ -34,7 +34,7 @@ const Details = () => {
     const [isVisible, setIsVisible] = useState(false);
 
     const onSubmit = async (data) => {
-
+        handleClose()
         const SpecialInstruction = data.SpecialInstruction;
         const ServiceTakingDate = data.ServiceTakingDate;
 
@@ -56,23 +56,20 @@ const Details = () => {
 
         if (filter) {
             toast.error('Already Booked')
-            handleClose()
             return
         }
+
+        reset()
 
         const { data: info } = await axios.post(`${import.meta.env.VITE_SERVER}/bookedEvents`, eventInfo)
 
 
         if (info.acknowledged) {
-
+            navigate('/dashboard/booked-service') 
             toast.success('Booked Successfully');
-            handleClose()
-            reset()
 
-            navigate('/dashboard/booked-service')
         }
 
-        // <Navigate to="/dashboard/booked-service" />
 
 
     }
