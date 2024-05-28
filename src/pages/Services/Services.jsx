@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import WithLoading from "../../components/WithLoading";
 import ServicesCards from "./ServiceComponents/ServicesCards";
 import axios from "axios";
@@ -6,6 +6,8 @@ import Spinner from "../../components/Spinner";
 import { keys } from "localforage";
 import ScrollToTop from "../../components/ScrollToTop";
 import SiteTitle from "../../components/sheared/SiteTitle";
+import { GlobalStateContext } from "../../Global/GlobalContext";
+import { Link } from "react-router-dom";
 
 
 
@@ -14,17 +16,16 @@ const Services = () => {
     const [loading, setLoading] = useState(true)
 
     const [datas, setDatas] = useState([])
+    const { searchData, open, setOpen } = useContext(GlobalStateContext)
+    const [filterData, setFilterData] = useState([])
 
 
-
-    const [total, setTotal] = useState(32)
+    const [total, setTotal] = useState(0)
     const [itemPerPage, setItemPerPage] = useState(5)
     const [currentPage, setCurrentPage] = useState(0)
     const totalPage = Math.ceil(total / itemPerPage)
     const pages = [...Array(totalPage).keys()]
-    // console.log(total);
 
-    // console.log(currentPage);
 
 
     useEffect(() => {
@@ -46,15 +47,50 @@ const Services = () => {
         getData()
     }, [])
 
+    useEffect(() => {
+        setFilterData(searchData)
+    }, [searchData])
+
     if (loading) {
         return <Spinner></Spinner>
     }
 
+    console.log(filterData);
 
     return (
         <ScrollToTop>
             <SiteTitle title='EventX | Service'></SiteTitle>
             <WithLoading>
+                <div className={`flex justify-center  ${!open ? "hidden" : ""} ${filterData.length === 0 ? "hidden" : ""}`}>
+                    <div className="lg:w-[75%] w-[95%] mx-auto bg-white dark:bg-themeColor3 lg:mt-10 md:mt-32 sm:mt-[136px] mt-[110px] fixed rounded-xl z-10 h-fit max-h-[50vh] overflow-auto">
+                        {
+                            filterData.map((item) => (
+                                <Link key={item._id} to={`/details/${item._id}`} onClick={()=>setOpen(!open)}>
+                                    <div className="flex justify-between items-center duration-200 hover:text-white dark:hover:text-white hover:bg-sky-300 dark:hover:bg-themeColor px-8 py-4 text-black dark:text-white overflow-auto gap-5">
+                                        <div className="avatar">
+                                            <div className="mask rounded-md w-40 h-40">
+                                                <img src={item.image} alt="Service" />
+                                            </div>
+                                        </div>
+                                        <h1 className="font-poppins font-bold max-w-[120px] text-sm">{item.name}</h1>
+                                        <div>
+                                            <h3 className="sm:block hidden max-w-[400px] mx-auto text-xs font-montserrat font-bold">
+                                                {item?.Description.slice(0, 100,) || item.Description}
+                                                {item?.Description.length > 50 ? '...' : ''}
+                                            </h3>
+                                            <h3 className="block sm:hidden text-xs font-montserrat font-bold">
+                                                {item?.Description.slice(0, 50,) || item.Description}
+                                                {item?.Description.length > 50 ? '...' : ''}
+                                            </h3>
+                                        </div>
+                                        <h4 className="text-xs font-montserrat font-bold">{item.area}</h4>
+                                        <h4 className="text-xs font-montserrat font-bold">{item.price}</h4>
+                                    </div>
+                                </Link>
+                            ))
+                        }
+                    </div>
+                </div>
                 <div className="w-[95%] max-w-[1170px] mx-auto pb-10 sm:pb-[100px]">
                     <div className='max-w-[600px] mb-10 mx-auto w-[95%] sm:pt-14 pt-10'>
                         <h1 className="text-pmColor text-3xl sm:text-5xl font-bold font-poppins text-center">All services</h1>
@@ -62,9 +98,11 @@ const Services = () => {
                     </div>
                     <div className="mt-10 flex flex-col gap-7">
                         {
-                            datas.map((item, i) => (
-                                <ServicesCards key={i} item={item} />
-                            ))
+                            datas.length === 0 ?
+                                <h1 className="sm:text-3xl text-xl mx-auto text-pmColor font-poppins font-bold">No data Found</h1>
+                                : datas.map((item, i) => (
+                                    <ServicesCards key={i} item={item} />
+                                ))
                         }
                     </div>
                     <div className=" flex justify-center pt-10">

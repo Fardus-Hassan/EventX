@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { auth } from "../firebase.config";
+import axios from "axios";
 
 
 
@@ -11,14 +12,16 @@ export const GlobalStateContext = createContext(null);
 const GlobalContext = ({ children }) => {
 
     const [loading, setLoading] = useState(true)
-    
+    const [searchData, setSearchData] = useState([])
+    const [open, setOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     // AuthContext ---------------------------------------------------------------------------------------------------
     const [user, setUser] = useState(null);
     const prevuser = auth.prevUser;
 
 
- console.log(user);
+    console.log(user);
 
 
     const register = (email, password) => {
@@ -71,7 +74,7 @@ const GlobalContext = ({ children }) => {
             photoURL: photoURL
 
         }).then(() => {
-            
+
             setUser(prevuser => {
                 return {
                     ...prevuser,
@@ -90,9 +93,15 @@ const GlobalContext = ({ children }) => {
     // AuthContext --------------------------------------------------------------------------------------------------------------
 
 
+    const handleSearch = async (value) => {
+        const { data } = await axios.get(`${import.meta.env.VITE_SERVER}/events/search/event?search=${value}`)
+        setSearchData(data);
+    }
+
+
     return (
 
-        <GlobalStateContext.Provider value={{ user, setLoading, register, login, logout, setUser, updateUserProfile, loading, }}>
+        <GlobalStateContext.Provider value={{ user, searchData, open, isOpen, setIsOpen, setOpen, handleSearch, setLoading, register, login, logout, setUser, updateUserProfile, loading, }}>
             {children}
         </GlobalStateContext.Provider>
 
