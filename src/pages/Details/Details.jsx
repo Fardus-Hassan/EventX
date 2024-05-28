@@ -2,12 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { FaAngleDoubleDown } from "react-icons/fa";
 import WithLoading from "../../components/WithLoading";
-import { Navigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { GlobalStateContext } from "../../Global/GlobalContext";
 import toast from "react-hot-toast";
+import SiteTitle from "../../components/sheared/SiteTitle";
 
 const Details = () => {
 
@@ -19,6 +20,8 @@ const Details = () => {
         reset,
         formState: { errors },
     } = useForm()
+
+    const navigate = useNavigate()
 
 
 
@@ -36,18 +39,19 @@ const Details = () => {
         const ServiceTakingDate = data.ServiceTakingDate;
 
         const currentUserName = user?.displayName
+        const currentUserPhoto = user?.photoURL
         const currentUserEmail = user?.email
 
         const { area, price, name, image, Description, email, userName, photoURL } = datas;
 
 
-        const eventInfo = { area, price, name, image, Description, email, userName, SpecialInstruction, ServiceTakingDate, currentUserName, currentUserEmail, id, photoURL };
+        const eventInfo = { area, price, name, image, Description, email, userName, SpecialInstruction, ServiceTakingDate, currentUserName, currentUserEmail, id, photoURL, status: "Pending", currentUserPhoto };
 
         console.log(eventInfo);
 
         const { data: check } = await axios.get(`${import.meta.env.VITE_SERVER}/bookedEvents/byId/${id}`)
 
-        const filter = check.find(item=>item.currentUserEmail == currentUserEmail)
+        const filter = check.find(item => item.currentUserEmail == currentUserEmail)
 
 
         if (filter) {
@@ -60,9 +64,12 @@ const Details = () => {
 
 
         if (info.acknowledged) {
+
             toast.success('Booked Successfully');
             handleClose()
             reset()
+
+            navigate('/dashboard/booked-service')
         }
 
         // <Navigate to="/dashboard/booked-service" />
@@ -152,6 +159,7 @@ const Details = () => {
                 </div>
                 <div className='lg:w-[50%] space-y-6 lg:px-0 sm:px-5 px-2'>
                     <h1 className='sm:text-4xl text-3xl font-poppins font-semibold text-black dark:text-white'>{datas.name}</h1>
+                    <SiteTitle title={`Service | ${datas.name}`}></SiteTitle>
                     <p className='text-lg font-montserrat font-semibold text-black dark:text-white'>Price : {datas.price}</p>
                     <p className='font-montserrat sm:text-base text-sm text-black dark:text-white'><strong>Description :</strong> {datas.Description}</p>
 
@@ -164,14 +172,16 @@ const Details = () => {
                     </div>
 
 
-                    <button onClick={handleOpen} className="group relative inline-flex w-fit text-center mx-auto h-12 items-center justify-center overflow-hidden rounded-md bg-pmColor px-6 font-medium text-neutral-200">
-                        <span>Book Now</span>
-                        <div className="w-0 translate-x-[100%] pl-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-0 group-hover:pl-1 group-hover:opacity-100">
-                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
-                                <path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor"></path>
-                            </svg>
-                        </div>
-                    </button>
+                    <div className="lg:block flex justify-center">
+                        <button onClick={handleOpen} className="group relative inline-flex w-fit text-center mx-auto h-12 items-center justify-center overflow-hidden rounded-md bg-pmColor px-6 font-medium text-neutral-200">
+                            <span>Book Now</span>
+                            <div className="w-0 translate-x-[100%] pl-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-0 group-hover:pl-1 group-hover:opacity-100">
+                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
+                                    <path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor"></path>
+                                </svg>
+                            </div>
+                        </button>
+                    </div>
                     <div className="relative flex justify-start z-50 shadow-2xl">
                         {isOpen && (
                             <div className={`fixed inset-0 z-10 overflow-y-auto transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`} aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -436,12 +446,12 @@ const Details = () => {
                         )}
                     </div>
 
-                    <form className='border border-gray-400 dark:border-gray-500 lg:w-[400px] sm:p-6 p-3 rounded-2xl -translate-y-5'>
+                    {/* <form className='border border-gray-400 dark:border-gray-500 lg:w-[400px] sm:p-6 p-3 rounded-2xl -translate-y-5'>
                         <h2 className='font-poppins font-semibold text-xl mb-3 text-black dark:text-white'>Comment</h2>
                         <input
                             type="text" name="comment" placeholder="Type Your Comment" className="block w-full px-4 py-2 mt-2 text-gray-700 h-[60px] placeholder-gray-400 bg-white border border-gray-400 rounded-lg dark:placeholder-gray-600 dark:bg-themeColor3 dark:text-gray-300 dark:border-gray-500 focus:border-blue-400 dark:focus:border-pmColor focus:ring-pmColor focus:outline-none focus:ring focus:ring-opacity-40" />
                         <button className='px-5 py-2 bg-pmColor rounded-xl block mt-3 text-white'>Sent</button>
-                    </form>
+                    </form> */}
                 </div>
             </div>
         </WithLoading>

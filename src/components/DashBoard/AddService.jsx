@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { GlobalStateContext } from "../../Global/GlobalContext";
 import toast from "react-hot-toast";
+import SiteTitle from "../sheared/SiteTitle";
 
 
 const AddService = () => {
@@ -50,6 +51,7 @@ const AddService = () => {
 
 return (
     <div className="flex flex-col justify-center lg:w-[60%] md:w-[80%] w-[95%] mx-auto min-h-screen lg:pt-0 pt-10">
+        <SiteTitle title='DashBoard | Add Service'></SiteTitle>
         <div className='max-w-[600px] sm:mb-10 mx-auto w-[95%]'>
             <h1 className="text-pmColor text-3xl sm:text-5xl font-bold font-poppins text-center">Add Service</h1>
             <p className="text-black dark:text-white text-center mt-6 font-medium sm:text-base text-sm font-montserrat mb-10">Add the service you want to provide by writing the details of the face service in the input fields below</p>

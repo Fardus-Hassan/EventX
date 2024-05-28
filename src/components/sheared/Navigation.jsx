@@ -42,8 +42,10 @@ const Navigation = () => {
 
 
     return (
-        <nav className=" bg-white shadow dark:bg-themeColor3 fixed w-full z-50">
-            <div className={`w-screen lg:h-[120px] sm:h-[200px] h-[175px] bg-white dark:bg-themeColor duration-300 absolute ${open ? "translate-y-0" : "translate-y-[-100%]"} left-0 z-50`}>
+        <nav
+            className=" bg-white shadow dark:bg-themeColor3 fixed w-full z-50">
+            <div
+                className={`w-screen lg:h-[120px] sm:h-[200px] h-[175px] bg-white dark:bg-themeColor duration-300 absolute ${open ? "translate-y-0" : "translate-y-[-100%]"} left-0 z-50`}>
                 <div className='flex sm:justify-end justify-center md:mr-10 sm:mr-5 sm:mt-0 mt-3 sm:items-center h-full z-50 hover:cursor-pointer'>
                     <IoIosCloseCircleOutline
                         onClick={() => setOpen(!open)}

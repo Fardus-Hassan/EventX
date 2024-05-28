@@ -1,9 +1,11 @@
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import SiteTitle from "../sheared/SiteTitle";
 
 const DashBoard = () => {
     return (
         <div className="flex flex-col justify-center items-center h-screen">
+            <SiteTitle title='DashBoard'></SiteTitle>
             <div className='max-w-[700px] mb-10 mx-auto w-[95%]'>
                 <h1 className="text-pmColor text-3xl sm:text-5xl font-bold font-poppins text-center">Your Dashboard</h1>
                 <p className="text-black dark:text-white text-center mt-6 font-medium sm:text-base text-sm font-montserrat mb-10">This is your personal dashboard where you can !</p>

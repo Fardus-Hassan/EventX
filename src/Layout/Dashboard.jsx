@@ -68,7 +68,7 @@ const Dashboard = () => {
                             </label>
                         </div>
 
-                        <div className="flex flex-col justify-between flex-1 mt-6">
+                        <div className="flex flex-col justify-between flex-1">
                             <nav className="-mx-3 space-y-3 ">
                                 <NavLink className="flex items-center px-3 py-2  sm:mt-10 mt-6 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-pmColor dark:hover:bg-pmColor" to="/">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-5 h-5">

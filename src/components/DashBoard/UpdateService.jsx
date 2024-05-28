@@ -5,6 +5,7 @@ import Spinner from '../Spinner';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { GlobalStateContext } from '../../Global/GlobalContext';
+import SiteTitle from '../sheared/SiteTitle';
 // import { GlobalStateContext } from 'your-context-file'; // Uncomment and update the import based on your context file
 
 const UpdateModal = () => {
@@ -53,27 +54,6 @@ const UpdateModal = () => {
 
 }
 
-
-    // const onSubmit = async (formData) => {
-    //     const eventInfo = {
-    //         ...formData,
-    //         userName: user?.displayName, // Replace with actual user data if available
-    //         email: user?.email, // Replace with actual user data if available
-    //         photoURL: user?.photoURL // Replace with actual user data if available
-    //     };
-
-    //     try {
-    //         const { data: info } = await axios.put(`${import.meta.env.VITE_SERVER}/events/${id}`, eventInfo);
-    //         if (info.acknowledged) {
-    //             toast.success('Updated Successfully');
-    //             reset();
-    //         }
-    //     } catch (error) {
-    //         console.error(error);
-    //         toast.error('Update Failed');
-    //     }
-    // };
-
     useEffect(() => {
         const getData = async () => {
             setLoading(true);
@@ -96,6 +76,7 @@ const UpdateModal = () => {
 
     return (
         <div className='sm:w-[75%] w-[95%] mx-auto  lg:p-0 pt-16 pb-10'>
+            <SiteTitle title={`Update Service | ${datas.name}`}></SiteTitle>
             <div className='flex flex-col justify-center min-h-screen'>
                 <div className="relative overflow-hidden rounded-xl h-[400px] mb-3 z-10">
                     <img className='object-cover w-full h-[400px] rounded-xl z-10 transition-transform duration-500 transform hover:scale-110' src={value} alt="" />
